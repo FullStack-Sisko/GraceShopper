@@ -1,7 +1,7 @@
 {
-  "name": "fs-app-template",
+  "name": "grace-shopper",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "Group Sisko's Grace Shopper project",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -34,8 +34,6 @@
     "@babel/core": "^7.12.10",
     "@babel/preset-react": "^7.12.10",
     "@babel/register": "^7.12.10",
-    "axios": "^0.21.1",
-    "axios-mock-adapter": "^1.16.0",
     "babel-loader": "^8.2.2",
     "chai": "^4.2.0",
     "enzyme": "^3.9.0",
