@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const db = require("./db");
+const db = require("../db");
 
 module.exports = db.define("plant", {
   name: {
@@ -10,7 +10,7 @@ module.exports = db.define("plant", {
     },
   },
   price: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       notEmpty: true,
@@ -43,6 +43,7 @@ module.exports = db.define("plant", {
       "https://www.iconpacks.net/icons/2/free-plant-icon-1573-thumb.png",
   },
   inventory: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
   },
 });
