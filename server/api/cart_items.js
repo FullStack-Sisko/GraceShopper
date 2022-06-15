@@ -19,7 +19,7 @@ router.get('/:userId', async (req, res, next) => {
   res.json(cart);
 })
 
-//create new cart_item
+//create new cart_item (need userId and plantId)
 router.post('/', async (req, res, next) => {
   try {
     res.status(201).send(await Cart_Item.create(req.body));
