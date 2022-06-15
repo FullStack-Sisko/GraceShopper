@@ -9,11 +9,4 @@ module.exports = db.define("cart_item", {
       notEmpty: true,
     },
   },
-  price: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
-  },
 });

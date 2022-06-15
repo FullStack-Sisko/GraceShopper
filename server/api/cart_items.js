@@ -10,7 +10,7 @@ router.get('/:userId', async (req, res, next) => {
       where: {
         userId: req.params.userId
       },
-      include: [User]
+      include: [User, Plant]
     });
   }
   catch (err) {
@@ -35,6 +35,18 @@ router.delete('/:cart_itemId', async (req, res, next) => {
     const cart_item = await Cart_Item.findByPk(req.params.cart_itemId)
     cart_item.destroy()
     res.send(cart_item)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//purchase cart and delete items
+router.delete('/purchase/:userId', async (req, res, next) => {
+
+  try {
+    const cart_items = await Cart_Item.findAll({ where: { userid: req.params.userId } })
+    cart_items.destroy()
+    res.send(cart_items)
   } catch (error) {
     next(error)
   }

@@ -8,6 +8,8 @@ const CREATED_CART_ITEM = 'CREATED_CART_ITEM'
 
 const DELETED_CART_ITEM = 'DELETED_CART_ITEM'
 
+const PURCHASED_CART = 'PURCHASED_CART'
+
 const INCREMENTED_CART_ITEM_QTY = 'INCREMENTED_CART_ITEM'
 
 const DECREMENTED_CART_ITEM_QTY = 'DECREMENTED_CART_ITEM'
@@ -28,6 +30,10 @@ const deletedCartItem = (cart_item) => ({
   type: DELETED_CART_ITEM, cart_item
 })
 
+const purchasedCart = (userId) => ({
+  type: PURCHASED_CART, cart_items
+})
+
 const incrementedCartItemQty = (cart_item) => ({
   type: INCREMENTED_CART_ITEM_QTY, cart_item
 })
@@ -43,7 +49,6 @@ export const getAllCartItems = (userId) => async (dispatch) => {
   dispatch(gotAllCartItems(data))
 }
 
-//how to access plantId, qty,
 export const createCartItem = (plantId, userId, Qty) => {
   return async (dispatch) => {
     const { data: cart_item } = axios.create(`/api/cart_items`, plantId, userId, Qty);
@@ -55,6 +60,14 @@ export const deleteCartItem = (cart_itemId) => {
   return async (dispatch) => {
     const { data: cart_item } = await axios.delete(`/api/cart_items/${cart_itemId}`);
     dispatch(deletedCartItem(cart_item))
+  }
+}
+
+export const purchaseCart = (userId) => {
+  return async (dispatch) => {
+    const { data: cart_items } = await axios.delete(`api/cart_items/purchase/${userId}`);
+    dispatch(purchasedCart(cart_items));
+    //history.push
   }
 }
 
@@ -72,8 +85,6 @@ export const decrementCartItemQty = (cart_itemId) => {
   }
 }
 
-
-
 //REDUCER
 
 const cartItemsReducer = (state = [], action) => {
@@ -84,6 +95,8 @@ const cartItemsReducer = (state = [], action) => {
       return action.cart_item;
     case DELETED_CART_ITEM:
       return state.filter((cart_item) => cart_item.id !== action.cart_item.id);
+    case PURCHASED_CART:
+      return action.cart_items
     case INCREMENTED_CART_ITEM_QTY:
       return action.cart_item;
     case DECREMENTED_CART_ITEM_QTY:

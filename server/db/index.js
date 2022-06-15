@@ -21,8 +21,8 @@ Order.belongsTo(User);
 Order.hasMany(Cart_Item);
 Cart_Item.belongsTo(Order);
 
-Cart_Item.belongsToMany(Plant, { through: "Carted_Plants" });
-Plant.belongsToMany(Cart_Item, { through: "Carted_Plants" });
+Plant.hasMany(Cart_Item);
+Cart_Item.belongsTo(Plant);
 
 Cart_Item.belongsTo(User);
 User.hasMany(Cart_Item);
