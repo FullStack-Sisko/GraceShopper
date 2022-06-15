@@ -52,13 +52,13 @@ const singlePlantReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_SINGLE_PLANT:
       return { ...state, info: action.plant };
-    case DELETE_PLANT_CART_ITEM:
-      const filtered = state.cartItems.filter(
-        (cartItem) => cartItem.id !== action.cartItem.id
-      );
-      return { ...state, cartItems: filtered };
-    case ADD_PLANT_CART_ITEM:
-      return { ...state, cartItems: action.cartItem };
+    // case DELETE_PLANT_CART_ITEM:
+    //   const filtered = state.cartItems.filter(
+    //     (cartItem) => cartItem.id !== action.cartItem.id
+    //   );
+    //   return { ...state, cartItems: filtered };
+    // case ADD_PLANT_CART_ITEM:
+    //   return { ...state, cartItems: action.cartItem };
     default:
       return state;
   }
