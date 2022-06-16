@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, Plant },
+  models: { User, Plant, Cart_Item },
 } = require("../server/db");
 
 /**
@@ -65,6 +65,12 @@ async function seed() {
       inventory: 5,
     }),
   ]);
+  const cart_items = await Promise.all([
+    Cart_Item.create({ id: 1, quantity: 2, plantId: 1, userId: 1 }),
+    Cart_Item.create({ id: 2, quantity: 1, plantId: 1, userId: 2 }),
+    Cart_Item.create({ id: 3, quantity: 1, plantId: 3, userId: 2 }),
+
+  ]);
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${plants.length} plants`);
@@ -80,6 +86,11 @@ async function seed() {
       birdOfParadise: plants[2],
       africanViolet: plants[3],
     },
+    cart_items: {
+      firstItem: cart_items[0],
+      secondItem: cart_items[1],
+      thirdItem: cart_items[2]
+    }
   };
 }
 

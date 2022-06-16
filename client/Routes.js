@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import { me } from "./store";
 import AllPlants from "./components/AllPlants";
 import SinglePlant from "./components/SinglePlant";
+import Cart from "./components/Cart";
 
 /**
  * COMPONENT
@@ -25,6 +26,7 @@ class Routes extends Component {
             <Route path="/home" component={Home} />
             <Route path="/plants/:plantId" component={SinglePlant} />
             <Route path="/plants" component={AllPlants} />
+            <Route path="/cart/:userId" component={Cart} />
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -34,6 +36,8 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
             <Route path="/plants/:plantId" component={SinglePlant} />
             <Route path="/plants" component={AllPlants} />
+            <Route path="/cart/:userId" component={Cart} />
+
           </Switch>
         )}
       </div>
