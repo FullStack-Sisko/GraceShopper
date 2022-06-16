@@ -4,9 +4,9 @@ const { models: { User, Order, Plant, Cart_Item } } = require('../db')
 
 // display cart (all cart_items belonging to :userId)
 router.get('/:userId', async (req, res, next) => {
-  let cart
+  let cart_items
   try {
-    cart = await Cart_Item.findAll({
+    cart_items = await Cart_Item.findAll({
       where: {
         userId: req.params.userId
       },
@@ -16,7 +16,7 @@ router.get('/:userId', async (req, res, next) => {
   catch (err) {
     next(err);
   }
-  res.json(cart);
+  res.json(cart_items);
 })
 
 //create new cart_item (need userId and plantId)

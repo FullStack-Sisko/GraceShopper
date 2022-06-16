@@ -45,8 +45,8 @@ const decrementedCartItemQty = (cart_item) => ({
 //THUNKS
 
 export const getAllCartItems = (userId) => async (dispatch) => {
-  const { data } = await axios.get(`/api/cart_items/${userId}`);
-  dispatch(gotAllCartItems(data))
+  const { data: cart_items } = await axios.get(`/api/cart_items/${userId}`);
+  dispatch(gotAllCartItems(cart_items))
 }
 
 export const createCartItem = (plantId, userId, Qty) => {
