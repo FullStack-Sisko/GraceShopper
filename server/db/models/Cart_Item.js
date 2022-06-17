@@ -4,9 +4,10 @@ const db = require("../db");
 module.exports = db.define("cart_item", {
   quantity: {
     type: Sequelize.INTEGER,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
+    defaultValue: 1
   },
+  isPurchased: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  }
 });
