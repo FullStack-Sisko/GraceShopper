@@ -17,6 +17,14 @@ export class Cart extends React.Component {
     this.props.getAllCartItems(userId);
   }
 
+  componentDidUpdate(prevProps) {
+    const userId = this.props.match.params.userId
+    if (prevProps.cart.length !== this.props.cart.length) {
+      console.log("hi")
+      this.props.getAllCartItems(userId);
+    }
+  }
+
   render() {
     console.log("props >>>", this.props)
     console.log("cart >>>", this.props.cart)
@@ -31,7 +39,7 @@ export class Cart extends React.Component {
         <ul>
           {cart.length === 0 ? (
             <h3>Nothing to show</h3>
-          ) : (cart.map((item) => {
+          ) : Array.isArray(cart) && (cart.map((item) => {
             orderTotal += (item.plant.price * item.quantity)
 
             return (
@@ -42,15 +50,18 @@ export class Cart extends React.Component {
                 }}>
                   <div >
                     <img style={{
-                      maxWidth: "100px",
+                      maxWidth: "150px", height: "auto"
+
                     }} src={item.plant.imgUrl} />
                   </div>
 
                   <div >
-                    <p>Name: {item.plant.name}</p>
+                    <h3>{item.plant.name}</h3>
                     <p> Quantity: </p>
 
-                    <button
+                    <button style={{
+                      margin: "5px"
+                    }}
                       type="submit"
                       onClick={() => {
                         item.quantity <= 1 ? null : this.props.decrementCartItemQty(item.id, history)
@@ -60,6 +71,9 @@ export class Cart extends React.Component {
                     <span>{item.quantity}</span>
 
                     <button
+                      style={{
+                        margin: "5px"
+                      }}
                       type="submit"
                       onClick={() => {
                         item.quantity >= item.inventory ? null :
@@ -69,10 +83,13 @@ export class Cart extends React.Component {
                     </button>
 
                     <br />
-                    <button type="submit" onClick={() => this.props.deleteCartItem(item.id, history)}>remove</button>
+                    <button type="submit" onClick={() => {
+                      const result = confirm("Are you sure you don't want to give this plant a new home?")
+                      if (result) this.props.deleteCartItem(item.id, history)
+                    }}>remove</button>
 
-                    <p>Price: {item.plant.price}</p>
-                    <p>Subtotal: {item.plant.price * item.quantity}</p>
+                    <p>Price: ${item.plant.price}</p>
+                    <p>Subtotal: ${item.plant.price * item.quantity}</p>
                   </div>
                 </div>
               </div>
@@ -83,7 +100,7 @@ export class Cart extends React.Component {
           }
 
         </ul>
-        <h3>Order Total Price: {orderTotal} </h3>
+        <h3>Order Total Price: ${orderTotal} </h3>
       </div>
     );
   }
