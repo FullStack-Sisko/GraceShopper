@@ -1,11 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getAllCartItems, deleteCartItem, purchaseCart, incrementCartItemQty, decrementCartItemQty } from "../store/cart_item";
+import { getAllCartItems, deleteCartItem, updateCartItem, purchaseCart, incrementCartItemQty, decrementCartItemQty } from "../store/cart_item";
 import { Link } from "react-router-dom";
 
 export class Cart extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+    // this.state={
+
+    // }
+    // this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -15,6 +19,8 @@ export class Cart extends React.Component {
 
   render() {
     console.log("props >>>", this.props)
+    console.log("cart >>>", this.props.cart)
+    console.log("state >>>", this.state)
     const { cart } = this.props;
     // const { quantity } = this.props.cart.plant
     let orderTotal = 0
@@ -25,37 +31,59 @@ export class Cart extends React.Component {
         <ul>
           {cart.length === 0 ? (
             <h3>Nothing to show</h3>
-          ) : (
-            cart.map((item) => {
-              orderTotal += (item.plant.price * item.quantity)
+          ) : (cart.map((item) => {
+            orderTotal += (item.plant.price * item.quantity)
 
-              return (
-                <div key={item.plant.id} style={{ border: "1px solid black" }}>
+            return (
+              <div key={item.plant.id} style={{ border: "1px solid black" }}>
 
-                  <div>
+                <div style={{
+                  textAlign: "center", margin: "15px"
+                }}>
+                  <div >
                     <img style={{
-                      maxWidth: "100px"
+                      maxWidth: "100px",
                     }} src={item.plant.imgUrl} />
+                  </div>
+
+                  <div >
                     <p>Name: {item.plant.name}</p>
                     <p> Quantity: </p>
-                    <button>-</button>
+
+                    <button
+                      type="submit"
+                      onClick={() => {
+                        item.quantity <= 1 ? null : this.props.decrementCartItemQty(item.id, history)
+                      }} >-
+                    </button>
+
                     <span>{item.quantity}</span>
-                    <button>+</button>
+
+                    <button
+                      type="submit"
+                      onClick={() => {
+                        item.quantity >= item.inventory ? null :
+                          this.props.incrementCartItemQty(item.id, history)
+                      }}>
+                      +
+                    </button>
+
                     <br />
                     <button type="submit" onClick={() => this.props.deleteCartItem(item.id, history)}>remove</button>
+
                     <p>Price: {item.plant.price}</p>
                     <p>Subtotal: {item.plant.price * item.quantity}</p>
-
                   </div>
                 </div>
-              )
-            }
+              </div>
             )
+          }
+          )
           )
           }
 
         </ul>
-        <h3>Order Total Price:{orderTotal} </h3>
+        <h3>Order Total Price: {orderTotal} </h3>
       </div>
     );
   }
@@ -70,7 +98,9 @@ const mapState = (state) => {
 const mapDispatch = (dispatch, { history }) => {
   return {
     getAllCartItems: (userId) => dispatch(getAllCartItems(userId)),
-    deleteCartItem: (cart_itemId) => dispatch(deleteCartItem(cart_itemId, history))
+    deleteCartItem: (cart_itemId) => dispatch(deleteCartItem(cart_itemId, history)),
+    incrementCartItemQty: (cart_itemId) => dispatch(incrementCartItemQty(cart_itemId, history)),
+    decrementCartItemQty: (cart_itemId) => dispatch(decrementCartItemQty(cart_itemId, history)),
   };
 };
 

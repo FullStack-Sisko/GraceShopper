@@ -20,9 +20,15 @@ router.get('/:userId', async (req, res, next) => {
 })
 
 //create new cart_item (need userId and plantId)
-router.post('/', async (req, res, next) => {
+router.post('/:userId/:plantId', async (req, res, next) => {
   try {
-    res.status(201).send(await Cart_Item.create(req.body));
+    const user = await User.findByPk(req.params.userId)
+
+    const plant = await Plant.findByPk(req.params.plantId)
+
+    const cart_item = await Cart_Item.create({ userId: user.id, plantId: plant.id })
+
+    res.status(201).send(cart_item);
   } catch (error) {
     next(error);
   }
@@ -40,23 +46,14 @@ router.delete('/:cart_itemId', async (req, res, next) => {
   }
 })
 
-//purchase cart and delete items
-router.delete('/purchase/:userId', async (req, res, next) => {
-
-  try {
-    const cart_items = await Cart_Item.findAll({ where: { userid: req.params.userId } })
-    cart_items.destroy()
-    res.send(cart_items)
-  } catch (error) {
-    next(error)
-  }
-})
-
 // increment quantity of item in cart
 router.put('/inc/:cart_itemId', async (req, res, next) => {
   try {
+
     const cart_item = await Cart_Item.findByPk(req.params.cart_itemId)
-    res.send(await cart_item.update({ quantity: quantity + 1 }))
+
+    res.send(await cart_item.increment('quantity')
+    )
   } catch (error) {
     next(error)
   }
@@ -65,8 +62,23 @@ router.put('/inc/:cart_itemId', async (req, res, next) => {
 // decrement quantity of item in cart
 router.put('/dec/:cart_itemId', async (req, res, next) => {
   try {
+
     const cart_item = await Cart_Item.findByPk(req.params.cart_itemId)
-    res.send(await cart_item.update({ quantity: quantity - 1 }))
+
+    res.send(await cart_item.decrement('quantity')
+    )
+  } catch (error) {
+    next(error)
+  }
+})
+
+//purchase cart and delete items
+router.delete('/purchase/:userId', async (req, res, next) => {
+
+  try {
+    const cart_items = await Cart_Item.findAll({ where: { userid: req.params.userId } })
+    cart_items.destroy()
+    res.send(cart_items)
   } catch (error) {
     next(error)
   }
