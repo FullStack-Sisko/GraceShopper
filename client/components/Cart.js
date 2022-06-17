@@ -37,9 +37,9 @@ export class Cart extends React.Component {
         <h1>Your Cart</h1>
 
         <ul>
-          {cart.length === 0 ? (
+          {cart.length === 0 || (!cart[0] || !cart[0].plant) ? (
             <h3>Nothing to show</h3>
-          ) : Array.isArray(cart) && (cart.map((item) => {
+          ) : (cart.map((item) => {
             orderTotal += (item.plant.price * item.quantity)
 
             return (
@@ -76,7 +76,7 @@ export class Cart extends React.Component {
                       }}
                       type="submit"
                       onClick={() => {
-                        item.quantity >= item.inventory ? null :
+                        item.quantity >= item.plant.inventory ? null :
                           this.props.incrementCartItemQty(item.id, history)
                       }}>
                       +
@@ -86,7 +86,7 @@ export class Cart extends React.Component {
                     <button type="submit" onClick={() => {
                       const result = confirm("Are you sure you don't want to give this plant a new home?")
                       if (result) this.props.deleteCartItem(item.id, history)
-                    }}>remove</button>
+                    }}>remove {item.plant.name} from cart</button>
 
                     <p>Price: ${item.plant.price}</p>
                     <p>Subtotal: ${item.plant.price * item.quantity}</p>
