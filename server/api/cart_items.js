@@ -46,6 +46,33 @@ router.delete('/:cart_itemId', async (req, res, next) => {
   }
 })
 
+
+//purchase cart items
+router.put('/purchase/:userId', async (req, res, next) => {
+  try {
+    const cart_items = await Cart_Item.update(
+      {
+        purchaseStatus: "purchased",
+        purchaseDate: new Date(),
+        purchasePrice: 100
+      },
+
+      {
+        where: {
+          userId: req.params.userId,
+          purchaseStatus: "cart"
+        }
+      }
+    )
+    res.send(cart_items)
+    // res.send(await cart_items.update({ isPurchased: true }))
+  } catch (error) {
+    next(error)
+  }
+})
+
+
+
 // increment quantity of item in cart
 router.put('/inc/:cart_itemId', async (req, res, next) => {
   try {
@@ -72,17 +99,19 @@ router.put('/dec/:cart_itemId', async (req, res, next) => {
   }
 })
 
-//purchase cart and delete items
-router.delete('/purchase/:userId', async (req, res, next) => {
-
+// save cart item for later
+router.put('/later/:cart_itemId', async (req, res, next) => {
   try {
-    const cart_items = await Cart_Item.findAll({ where: { userid: req.params.userId } })
-    cart_items.destroy()
-    res.send(cart_items)
+    const cart_item = await Cart_Item.update(
+      { purchaseStatus: "later" },
+      { where: { id: req.params.cart_itemId } })
+
+    res.send(cart_item)
   } catch (error) {
     next(error)
   }
 })
+
 
 
 module.exports = router

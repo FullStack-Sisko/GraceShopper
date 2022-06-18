@@ -14,6 +14,7 @@ const INCREMENTED_CART_ITEM_QTY = 'INCREMENTED_CART_ITEM_QTY'
 
 const DECREMENTED_CART_ITEM_QTY = 'INCREMENTED_CART_ITEM_QTY'
 
+const SAVED_FOR_LATER = 'SAVED_FOR_LATER'
 
 
 //ACTION CREATORS
@@ -30,7 +31,7 @@ const deletedCartItem = (cart_item) => ({
   type: DELETED_CART_ITEM, cart_item
 })
 
-const purchasedCart = (userId) => ({
+const purchasedCart = (cart_items) => ({
   type: PURCHASED_CART, cart_items
 })
 
@@ -40,6 +41,11 @@ const incrementedCartItemQty = (cart_item) => ({
 
 const decrementedCartItemQty = (cart_item) => ({
   type: DECREMENTED_CART_ITEM_QTY, cart_item
+})
+
+const savedForLater = (cart_item) => ({
+  type: SAVED_FOR_LATER,
+  cart_item
 })
 //THUNKS
 
@@ -78,9 +84,17 @@ export const decrementCartItemQty = (cart_itemId) => {
 
 export const purchaseCart = (userId) => {
   return async (dispatch) => {
-    const { data: cart_items } = await axios.delete(`api/cart_items/purchase/${userId}`);
+    const { data: cart_items } = await axios.put(`/api/cart_items/purchase/${userId}`);
     dispatch(purchasedCart(cart_items));
-    //history.push
+    // history.push('/')
+  }
+}
+
+export const saveForLater = (cart_itemId) => {
+  return async (dispatch) => {
+    const { data: cart_item } = await axios.put(`/api/cart_items/later/${cart_itemId}`);
+    dispatch(savedForLater(cart_item));
+    // history.push('/')
   }
 }
 
@@ -107,6 +121,10 @@ const cartItemsReducer = (state = [], action) => {
       return action.cart_item;
     case DECREMENTED_CART_ITEM_QTY:
       return action.cart_item;
+    case SAVED_FOR_LATER:
+      return action.cart_item
+
+
 
     default:
       return state;

@@ -4,10 +4,18 @@ const db = require("../db");
 module.exports = db.define("cart_item", {
   quantity: {
     type: Sequelize.INTEGER,
-    defaultValue: 1
+    defaultValue: 1,
   },
-  isPurchased: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
+  purchaseStatus: {
+    type: Sequelize.ENUM("cart", "favorite", "later", "purchased"),
+    defaultValue: "cart"
+  },
+  purchaseDate: {
+    type: Sequelize.DATE,
+    defaultValue: null
+  },
+  purchasePrice: {
+    type: Sequelize.INTEGER,
+    defaultValue: null
   }
 });

@@ -1,13 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getAllCartItems, deleteCartItem, updateCartItem, purchaseCart, incrementCartItemQty, decrementCartItemQty } from "../store/cart_item";
+import { getAllCartItems, deleteCartItem, updateCartItem, purchaseCart, incrementCartItemQty, decrementCartItemQty, saveForLater } from "../store/cart_item";
 import { Link } from "react-router-dom";
 
 export class Cart extends React.Component {
   constructor(props) {
     super(props);
-    // this.state={
-
+    // this.state = {
+    //   cart: this.cart || [{ purchaseStatus: null }]
     // }
     // this.handleClick = this.handleClick.bind(this)
   }
@@ -31,15 +31,20 @@ export class Cart extends React.Component {
     console.log("state >>>", this.state)
     const { cart } = this.props;
     // const { quantity } = this.props.cart.plant
+    let userId = this.props.userId
     let orderTotal = 0
+
+    const currentCart = cart.filter((item) => item.purchaseStatus === "cart")
+    const laterCart = cart.filter((item) => item.purchaseStatus === "later")
+    const pastPurchased = cart.filter((item) => item.purchaseStatus === "purchased")
+
     return (
       <div>
         <h1>Your Cart</h1>
-
         <ul>
-          {cart.length === 0 || (!cart[0] || !cart[0].plant) ? (
+          {currentCart.length === 0 || (!currentCart[0] || !currentCart[0].plant) ? (
             <h3>Nothing to show</h3>
-          ) : (cart.map((item) => {
+          ) : (currentCart.map((item) => {
             orderTotal += (item.plant.price * item.quantity)
 
             return (
@@ -83,6 +88,13 @@ export class Cart extends React.Component {
                     </button>
 
                     <br />
+                    {/* move item to save for later */}
+                    <button type="submit" onClick={() => {
+                      const result = confirm("Are you sure you'd like to remove this item from your cart and save it for later?")
+                      if (result) this.props.saveForLater(item.id, history)
+                    }}>move {item.plant.name} to "saved for later"</button>
+
+                    {/* remove item from cart */}
                     <button type="submit" onClick={() => {
                       const result = confirm("Are you sure you don't want to give this plant a new home?")
                       if (result) this.props.deleteCartItem(item.id, history)
@@ -101,6 +113,36 @@ export class Cart extends React.Component {
 
         </ul>
         <h3>Order Total Price: ${orderTotal} </h3>
+        {/* {console.log("userId", userId)} */}
+        <button type="submit" onClick={() => this.props.purchaseCart(userId)}>Complete Checkout</button>
+
+
+        {/* saved for later scroll */}
+        <h3>Saved for Later</h3>
+        <div style={{ display: "flex", flexDirection: "row", overflowX: "scroll" }}>
+          {laterCart.map(item => {
+            { console.log("item", item) }
+            return (<div key={item.id} style={{ marginLeft: "10px", marginRight: "10px" }}>
+              <img style={{ width: "180px" }} src={item.plant.imgUrl} alt={item.plant.name} />
+              <p> {item.plant.name}</p>
+              <p>add to cart</p>
+            </div>)
+          })
+          }
+        </div>
+        {/* previously purchased scroll */}
+        <h3>Previously purchased</h3>
+        <div style={{ display: "flex", flexDirection: "row", overflowX: "scroll" }}>
+          {pastPurchased.map(item => {
+            { console.log("item", item) }
+            return (<div key={item.id} style={{ marginLeft: "10px", marginRight: "10px" }}>
+              <img style={{ width: "180px" }} src={item.plant.imgUrl} alt={item.plant.name} />
+              <p> {item.plant.name}</p>
+              <p>buy again?</p>
+            </div>)
+          })
+          }
+        </div>
       </div>
     );
   }
@@ -109,6 +151,7 @@ export class Cart extends React.Component {
 const mapState = (state) => {
   return {
     cart: state.cart,
+    userId: state.auth.id
   };
 };
 
@@ -118,6 +161,8 @@ const mapDispatch = (dispatch, { history }) => {
     deleteCartItem: (cart_itemId) => dispatch(deleteCartItem(cart_itemId, history)),
     incrementCartItemQty: (cart_itemId) => dispatch(incrementCartItemQty(cart_itemId, history)),
     decrementCartItemQty: (cart_itemId) => dispatch(decrementCartItemQty(cart_itemId, history)),
+    purchaseCart: (userId) => dispatch(purchaseCart(userId)),
+    saveForLater: (cart_itemId) => dispatch(saveForLater(cart_itemId))
   };
 };
 
