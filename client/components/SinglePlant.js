@@ -63,7 +63,7 @@ class SinglePlant extends React.Component {
         </div>
 
         {plant.inventory === 0 ? null : (
-          <button
+          <button className="btn"
             type="submit"
             onClick={() => {
               alert(`${plant.name} has been added to your cart`)
