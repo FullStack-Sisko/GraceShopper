@@ -176,13 +176,14 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch, { history }) => {
   return {
-    getAllCartItems: (userId) => dispatch(getAllCartItems(userId)),
+    getAllCartItems: (userId) => dispatch(getAllCartItems(userId, history)),
     deleteCartItem: (cart_itemId) => dispatch(deleteCartItem(cart_itemId, history)),
     incrementCartItemQty: (cart_itemId) => dispatch(incrementCartItemQty(cart_itemId, history)),
     decrementCartItemQty: (cart_itemId) => dispatch(decrementCartItemQty(cart_itemId, history)),
-    purchaseCart: (userId) => dispatch(purchaseCart(userId)),
-    saveForLater: (cart_itemId) => dispatch(saveForLater(cart_itemId)), moveSavedToCart: (cart_itemId) => dispatch(moveSavedToCart(cart_itemId)),
-    createCartItem: (plantId, userId) => dispatch(createCartItem(plantId, userId))
+    purchaseCart: (userId) => dispatch(purchaseCart(userId, history)),
+    saveForLater: (cart_itemId) => dispatch(saveForLater(cart_itemId, history)),
+    moveSavedToCart: (cart_itemId) => dispatch(moveSavedToCart(cart_itemId, history)),
+    createCartItem: (plantId, userId) => dispatch(createCartItem(plantId, userId, history))
   };
 };
 

@@ -97,11 +97,11 @@ const mapState = (state) => ({
   user: state.auth
 });
 
-const mapDispatch = (dispatch) => ({
-  loadSinglePlant: (id) => dispatch(fetchSinglePlant(id)),
-  createCartItem: (plantId, userId) => dispatch(createCartItem(plantId, userId)),
+const mapDispatch = (dispatch, { history }) => ({
+  loadSinglePlant: (id) => dispatch(fetchSinglePlant(id, history)),
+  createCartItem: (plantId, userId) => dispatch(createCartItem(plantId, userId, history)),
   incrementCartItemQty: (cart_itemId) => dispatch(incrementCartItemQty(cart_itemId, history)),
-  getAllCartItems: (userId) => dispatch(getAllCartItems(userId)),
+  getAllCartItems: (userId) => dispatch(getAllCartItems(userId, history)),
 });
 
 export default connect(mapState, mapDispatch)(SinglePlant);

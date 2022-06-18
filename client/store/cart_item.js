@@ -50,7 +50,7 @@ const savedForLater = (cart_item) => ({
   cart_item
 })
 
-const movedSavedToCart = () => ({
+const movedSavedToCart = (cart_item) => ({
   type: MOVED_SAVED_TO_CART, cart_item
 })
 //THUNKS
@@ -60,55 +60,60 @@ export const getAllCartItems = (userId) => async (dispatch) => {
   dispatch(gotAllCartItems(cart_items))
 }
 
-export const createCartItem = (plantId, userId) => {
+export const createCartItem = (plantId, userId, history) => {
   return async (dispatch) => {
     const { data: cart_item } = axios.post(`/api/cart_items/${userId}/${plantId}`);
-    dispatch(createdCartItem(cart_item))
+    dispatch(createdCartItem(cart_item));
+    // history.push(`/cart/${userId}`)
   }
 }
 
-export const deleteCartItem = (cart_itemId) => {
+export const deleteCartItem = (cart_itemId, history, userId) => {
   return async (dispatch) => {
     const { data: cart_item } = await axios.delete(`/api/cart_items/${cart_itemId}`);
     dispatch(deletedCartItem(cart_item))
+    // history.push(`/cart/${userId}`)
+
   }
 }
 
-export const incrementCartItemQty = (cart_itemId) => {
+export const incrementCartItemQty = (cart_itemId, history, userId) => {
   return async (dispatch) => {
     const { data: cart_item } = await axios.put(`/api/cart_items/inc/${cart_itemId}`);
     dispatch(incrementedCartItemQty(cart_item))
+    // history.push(`/cart/${userId}`)
   }
 }
 
-export const decrementCartItemQty = (cart_itemId) => {
+export const decrementCartItemQty = (cart_itemId, history, userId) => {
   return async (dispatch) => {
     const { data: cart_item } = await axios.put(`/api/cart_items/dec/${cart_itemId}`);
     dispatch(decrementedCartItemQty(cart_item))
+    // history.push(`/cart/${userId}`)
   }
 }
 
-export const purchaseCart = (userId) => {
+export const purchaseCart = (userId, history) => {
   return async (dispatch) => {
     const { data: cart_items } = await axios.put(`/api/cart_items/purchase/${userId}`);
     dispatch(purchasedCart(cart_items));
-    // history.push('/')
+    // history.push(`/cart/${userId}`)
   }
 }
 
-export const saveForLater = (cart_itemId) => {
+export const saveForLater = (cart_itemId, history, userId) => {
   return async (dispatch) => {
     const { data: cart_item } = await axios.put(`/api/cart_items/later/${cart_itemId}`);
     dispatch(savedForLater(cart_item));
-    // history.push('/')
+    // history.push(`/cart/${userId}`)
   }
 }
 
-export const moveSavedToCart = (cart_itemId) => {
+export const moveSavedToCart = (cart_itemId, history, userId) => {
   return async (dispatch) => {
     const { data: cart_item } = await axios.put(`/api/cart_items/saved/${cart_itemId}`);
-    dispatch(moveSavedToCart(cart_item));
-    // history.push('/')
+    dispatch(movedSavedToCart(cart_item));
+    // history.push(`/cart/${userId}`)
   }
 }
 
