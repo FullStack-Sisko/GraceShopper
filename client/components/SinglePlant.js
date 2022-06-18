@@ -3,6 +3,7 @@ import { Route, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchSinglePlant } from "../store/singlePlant";
 import { createCartItem, incrementCartItemQty, getAllCartItems } from "../store/cart_item";
+import AddToCartButton from "./AddToCartButton"
 
 class SinglePlant extends React.Component {
   constructor(props) {

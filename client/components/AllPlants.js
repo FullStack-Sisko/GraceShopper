@@ -12,24 +12,28 @@ export class AllPlants extends React.Component {
     const { plants } = this.props;
     return (
       <div>
-        <h1>Current Available Plants</h1>
+        <h1>All Plants</h1>
         <ul>
           {plants.length === 0 ? (
             <h3>None Available</h3>
           ) : (
-            plants.map((plant) => (
-              <div key={plant.id}>
-                <div>
-                  <Link to={`/plants/${plant.id}`}>
-                    <h3>{plant.name}</h3>
-                  </Link>
-                  <p> Description: {plant.description}</p>
-                  <p>Price: {plant.price}</p>
-                  <p>Location: {plant.location}</p>
+            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-around" }}>
+              {plants.map((plant) => (
+                <div key={plant.id}>
+                  <div style={{ width: "400px" }}>
+                    <Link to={`/plants/${plant.id}`}>
+                      <img src={plant.imgUrl} alt={plant.name} style={{ width: "300px" }} />
+                      <h3>{plant.name}</h3>
+                    </Link>
+                    <p> Description: {plant.description}</p>
+                    <p>Price: {plant.price}</p>
+                    <p>Location: {plant.location}</p>
+                  </div>
                 </div>
-              </div>
-            ))
+              ))}
+            </div>
           )}
+
         </ul>
       </div>
     );

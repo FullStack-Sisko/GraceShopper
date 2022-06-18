@@ -112,6 +112,19 @@ router.put('/later/:cart_itemId', async (req, res, next) => {
   }
 })
 
+// move saved item into cart
+router.put('/saved/:cart_itemId', async (req, res, next) => {
+  try {
+    const cart_item = await Cart_Item.update(
+      { purchaseStatus: "cart" },
+      { where: { id: req.params.cart_itemId } })
+
+    res.send(cart_item)
+  } catch (error) {
+    next(error)
+  }
+})
+
 
 
 module.exports = router

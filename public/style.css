@@ -1,21 +1,43 @@
 body {
-  font-family: sans-serif;
+    font-family: sans-serif;
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 label {
-  display: block;
+    display: block;
 }
 
 nav a {
-  display: inline-block;
-  margin: 1em;
+    display: inline-block;
+    margin: 1em;
 }
 
 form div {
-  margin: 1em;
-  display: inline-block;
+    margin: 1em;
+    display: inline-block;
 }
+
+
+/* nav styles */
+
+.navbar {
+    display: flex;
+    font-size: 1.5rem;
+    background-color: rgb(73, 126, 73);
+    justify-content: space-between;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    color: rgb(148, 255, 148);
+}
+
+
+/* cart styles */

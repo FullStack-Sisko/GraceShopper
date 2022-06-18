@@ -16,6 +16,8 @@ const DECREMENTED_CART_ITEM_QTY = 'INCREMENTED_CART_ITEM_QTY'
 
 const SAVED_FOR_LATER = 'SAVED_FOR_LATER'
 
+const MOVED_SAVED_TO_CART = 'MOVED_SAVED_TO_CART'
+
 
 //ACTION CREATORS
 
@@ -46,6 +48,10 @@ const decrementedCartItemQty = (cart_item) => ({
 const savedForLater = (cart_item) => ({
   type: SAVED_FOR_LATER,
   cart_item
+})
+
+const movedSavedToCart = () => ({
+  type: MOVED_SAVED_TO_CART, cart_item
 })
 //THUNKS
 
@@ -98,6 +104,15 @@ export const saveForLater = (cart_itemId) => {
   }
 }
 
+export const moveSavedToCart = (cart_itemId) => {
+  return async (dispatch) => {
+    const { data: cart_item } = await axios.put(`/api/cart_items/saved/${cart_itemId}`);
+    dispatch(moveSavedToCart(cart_item));
+    // history.push('/')
+  }
+}
+
+
 // export const decrementCartItemQty = (cart_itemId) => {
 //   return async (dispatch) => {
 //     const { data } = await axios.put(`/cart_items/inc/${cart_itemId}`);
@@ -122,6 +137,8 @@ const cartItemsReducer = (state = [], action) => {
     case DECREMENTED_CART_ITEM_QTY:
       return action.cart_item;
     case SAVED_FOR_LATER:
+      return action.cart_item;
+    case MOVED_SAVED_TO_CART:
       return action.cart_item
 
 

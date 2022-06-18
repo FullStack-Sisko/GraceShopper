@@ -64,6 +64,61 @@ async function seed() {
         "https://bloomscape.com/wp-content/uploads/2022/03/bloomscape_african-violet_pink_small_detail1.jpg?ver=697052",
       inventory: 5,
     }),
+    Plant.create({
+      name: "Fiddle Leaf Fig",
+      price: 35,
+      description:
+        "Tall, sculptural, and dramatic. This plant will flourish in the right conditions.",
+      location: "Outdoor",
+      care: "Moderate",
+      imgUrl:
+        "https://bloomscape.com/wp-content/uploads/2020/08/bloomscape_fiddle-leaf-fig_charcoal-alt-e1625252593949.jpg?ver=279576",
+      inventory: 5,
+    }),
+    Plant.create({
+      name: "Schefflera Arboricola",
+      price: 35,
+      description:
+        "With dramatic, umbrella-shaped leaf formations and braided trunk, the Schefflera Arboricola is a no-fuss tree that’s nearly 4 feet tall. Perfect for cozy reading nooks and small spaces where it can receive bright, indirect light.",
+      location: "Outdoor",
+      care: "Moderate",
+      imgUrl:
+        "https://bloomscape.com/wp-content/uploads/2020/08/bloomscape_schefflera-arboricola_clay.jpg?ver=279602",
+      inventory: 5,
+    }),
+    Plant.create({
+      name: "Red Prayer Plant",
+      price: 35,
+      description:
+        "Colorful and bold with hints of red on two-toned leaves",
+      location: "Outdoor",
+      care: "Moderate",
+      imgUrl:
+        "https://bloomscape.com/wp-content/uploads/2021/06/bloomscape_red-prayer-plant_charcoal_0621-scaled-e1625244693185.jpg?ver=542553",
+      inventory: 5,
+    }),
+    Plant.create({
+      name: "Peperomia Watermelon",
+      price: 35,
+      description:
+        "Fitting its fun name, the Peperomia Watermelon’s round leaves look like striped green and white melon rinds supported by red stems. The Peperomia Watermelon is adaptable to a variety of light levels and is easy to care for. This peperomia is also fun to propagate through stem or leaf cuttings, making it the perfect educational activity for families..",
+      location: "Outdoor",
+      care: "Moderate",
+      imgUrl:
+        "https://bloomscape.com/wp-content/uploads/2022/03/bloomscape_african-violet_pink_small_detail1.jpg?ver=697052",
+      inventory: 5,
+    }),
+    Plant.create({
+      name: "Bamboo Palm",
+      price: 35,
+      description:
+        "With dense foliage and lush fronds, the Bamboo Palm makes a statement. An air-purifying plant adaptable to low light, this palm can reach heights of up to 8 feet tall in the right conditions..",
+      location: "Outdoor",
+      care: "Moderate",
+      imgUrl:
+        "https://bloomscape.com/wp-content/uploads/2020/08/bloomscape_bamboo-palm_stone.jpg?ver=279484",
+      inventory: 5,
+    }),
   ]);
   // const cart_items = await Promise.all([
   //   Cart_Item.create({ id: 1, quantity: 2, plantId: 1, userId: 1 }),

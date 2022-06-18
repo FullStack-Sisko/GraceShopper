@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getAllCartItems, deleteCartItem, updateCartItem, purchaseCart, incrementCartItemQty, decrementCartItemQty, saveForLater } from "../store/cart_item";
+import { createCartItem, getAllCartItems, deleteCartItem, updateCartItem, purchaseCart, incrementCartItemQty, decrementCartItemQty, saveForLater, moveSavedToCart } from "../store/cart_item";
 import { Link } from "react-router-dom";
 
 export class Cart extends React.Component {
@@ -125,11 +125,20 @@ export class Cart extends React.Component {
             return (<div key={item.id} style={{ marginLeft: "10px", marginRight: "10px" }}>
               <img style={{ width: "180px" }} src={item.plant.imgUrl} alt={item.plant.name} />
               <p> {item.plant.name}</p>
-              <p>add to cart</p>
+              {item.plant.inventory === 0 ? null : (
+                <button
+                  type="submit"
+                  onClick={() => {
+                    alert(`${item.plant.name} has been added to your cart`)
+                    this.props.moveSavedToCart(item.id)
+                  }}  >
+                  Add to Cart
+                </button>)}
             </div>)
           })
           }
         </div>
+
         {/* previously purchased scroll */}
         <h3>Previously purchased</h3>
         <div style={{ display: "flex", flexDirection: "row", overflowX: "scroll" }}>
@@ -138,7 +147,17 @@ export class Cart extends React.Component {
             return (<div key={item.id} style={{ marginLeft: "10px", marginRight: "10px" }}>
               <img style={{ width: "180px" }} src={item.plant.imgUrl} alt={item.plant.name} />
               <p> {item.plant.name}</p>
-              <p>buy again?</p>
+
+              {item.plant.inventory === 0 ? null : (
+                <button
+                  type="submit"
+                  onClick={() => {
+                    alert(`${item.plant.name} has been added to your cart`)
+                    this.props.createCartItem(item.plant.id, userId)
+                  }} >
+                  Buy it again?
+                </button>)}
+
             </div>)
           })
           }
@@ -162,7 +181,8 @@ const mapDispatch = (dispatch, { history }) => {
     incrementCartItemQty: (cart_itemId) => dispatch(incrementCartItemQty(cart_itemId, history)),
     decrementCartItemQty: (cart_itemId) => dispatch(decrementCartItemQty(cart_itemId, history)),
     purchaseCart: (userId) => dispatch(purchaseCart(userId)),
-    saveForLater: (cart_itemId) => dispatch(saveForLater(cart_itemId))
+    saveForLater: (cart_itemId) => dispatch(saveForLater(cart_itemId)), moveSavedToCart: (cart_itemId) => dispatch(moveSavedToCart(cart_itemId)),
+    createCartItem: (plantId, userId) => dispatch(createCartItem(plantId, userId))
   };
 };
 
