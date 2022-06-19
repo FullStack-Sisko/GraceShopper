@@ -20,7 +20,7 @@ export class Cart extends React.Component {
   componentDidUpdate(prevProps) {
     const userId = this.props.match.params.userId
     if (prevProps.cart.length !== this.props.cart.length) {
-      console.log("hi")
+      console.log("component updated")
       this.props.getAllCartItems(userId);
     }
   }
@@ -41,98 +41,109 @@ export class Cart extends React.Component {
     return (
       <div>
         <h1 className="center cart-title">Your Cart</h1>
-        <ul>
-          {currentCart.length === 0 || (!currentCart[0] || !currentCart[0].plant) ? (
-            <h3>Nothing to show</h3>
-          ) : (currentCart.map((item) => {
-            orderTotal += (item.plant.price * item.quantity)
 
-            return (
-              <div key={item.plant.id} className="cart-item">
+        {currentCart.length === 0 || (!currentCart[0] || !currentCart[0].plant) ? (
+          <div className="center">
+            <h3>Looks like your cart is currently empty.</h3>
 
-                <div className="cart-img-container">
-                  <img className="img small" src={item.plant.imgUrl} />
-                </div>
+            <Link to="/plants">
+              <button className="empty-cart btn">Add some plants</button></Link>
 
-                <div className="cart-info-container">
-                  <div className="cart-info-top-container">
+          </div>
+        ) : (currentCart.map((item) => {
+          orderTotal += (item.plant.price * item.quantity)
 
-                    <h3 className="cart-item-name">{item.plant.name}</h3>
+          return (
+            <div key={item.plant.id} className="cart-item">
 
-                    {/* quantity and add/subtract buttons */}
-                    <div className="cart-item-quantity">
-                      <p className="bold center"> Quantity </p>
+              <div className="cart-img-container">
+                <img className="img small" src={item.plant.imgUrl} />
+              </div>
 
-                      <button className="btn decrement" style={{
+              <div className="cart-info-container">
+                <div className="cart-info-top-container">
+
+                  <h3 className="cart-item-name">{item.plant.name}</h3>
+
+                  {/* quantity and add/subtract buttons */}
+                  <div className="cart-item-quantity">
+                    <p className="bold center"> Quantity </p>
+
+                    <button className="btn decrement" style={{
+                      margin: "5px"
+                    }}
+                      type="submit"
+                      onClick={() => {
+                        item.quantity <= 1 ? null : this.props.decrementCartItemQty(item.id, history)
+                      }} >-
+                    </button>
+
+                    <span className="cart-item-quantity-number">{item.quantity}</span>
+
+                    <button className="btn increment"
+                      style={{
                         margin: "5px"
                       }}
-                        type="submit"
-                        onClick={() => {
-                          item.quantity <= 1 ? null : this.props.decrementCartItemQty(item.id, history)
-                        }} >-
-                      </button>
-
-                      <span className="cart-item-quantity-number">{item.quantity}</span>
-
-                      <button className="btn increment"
-                        style={{
-                          margin: "5px"
-                        }}
-                        type="submit"
-                        onClick={() => {
-                          item.quantity >= item.plant.inventory ? null :
-                            this.props.incrementCartItemQty(item.id, history)
-                        }}>
-                        +
-                      </button>
-                    </div>
-                    <div className="cart-item-price">
-                      <p><span className="bold"> Price: </span>${item.plant.price}</p>
-                      <p>Subtotal: ${item.plant.price * item.quantity}</p>
-                    </div>
+                      type="submit"
+                      onClick={() => {
+                        item.quantity >= item.plant.inventory ? null :
+                          this.props.incrementCartItemQty(item.id, history)
+                      }}>
+                      +
+                    </button>
                   </div>
-
-                  {/* move item to saved for later */}
-                  <div className="cart-info-bottom-container">
-                    <button className="btn later" type="submit" onClick={() => {
-                      const result = confirm("Are you sure you'd like to remove this item from your cart and save it for later?")
-                      if (result) this.props.saveForLater(item.id, history)
-                    }}>save for later</button>
-
-                    {/* remove item from cart */}
-                    <button className="btn remove" type="submit" onClick={() => {
-                      const result = confirm("Are you sure you don't want to give this plant a new home?")
-                      if (result) this.props.deleteCartItem(item.id, history)
-                    }}>remove from cart</button>
+                  <div className="cart-item-price">
+                    <p><span className="bold"> Price: </span>${item.plant.price}</p>
+                    <p>Subtotal: ${item.plant.price * item.quantity}</p>
                   </div>
-
-
                 </div>
+
+                {/* move item to saved for later */}
+                <div className="cart-info-bottom-container">
+                  <button className="btn later" type="submit" onClick={() => {
+                    const result = confirm("Are you sure you'd like to remove this item from your cart and save it for later?")
+                    if (result) this.props.saveForLater(item.id, history)
+                  }}>save for later</button>
+
+                  {/* remove item from cart */}
+                  <button className="btn remove" type="submit" onClick={() => {
+                    const result = confirm("Are you sure you don't want to give this plant a new home?")
+                    if (result) this.props.deleteCartItem(item.id, history)
+                  }}>remove from cart</button>
+                </div>
+
+
               </div>
-            )
-          }))
-          }
+            </div>
+          )
+        }))
 
-        </ul>
-        <div className="checkout-total-container">
-          <h3 className="center order-total">Order Total Price: ${orderTotal} </h3>
+        }
 
-          <div className="checkout-btn">
-            <button className="btn center" type="submit" onClick={() => this.props.purchaseCart(userId)}>Complete Checkout</button>
-          </div>
-        </div>
+        {
+          currentCart.length === 0 || (!currentCart[0] || !currentCart[0].plant) ? null : (<div className="checkout-total-container">
+            <h3 className="center order-total">Order Total Price: ${orderTotal} </h3>
+
+            <div className="checkout-btn">
+              <button className="btn center" type="submit" onClick={() => this.props.purchaseCart(userId)}>Complete Checkout</button>
+            </div>
+          </div>)
+        }
 
         {/* saved for later scroll */}
         <h3 className="center">Saved for Later</h3>
         <div className="scroll">
           {laterCart.map(item => {
             { console.log("item", item) }
-            return (<div key={item.id} style={{ marginLeft: "10px", marginRight: "10px" }}>
-              <img style={{ width: "180px" }} src={item.plant.imgUrl} alt={item.plant.name} />
-              <p> {item.plant.name}</p>
+            return (<div key={item.id} >
+              <img className="scroll-item small" src={item.plant.imgUrl} alt={item.plant.name} />
+              <div className="scroll-name-price-container">
+                <p> {item.plant.name}</p>
+                <p>${item.plant.price}</p>
+              </div>
               {item.plant.inventory === 0 ? null : (
                 <button
-                  className="btn"
+                  className="btn scroll-btn"
                   type="submit"
                   onClick={() => {
                     alert(`${item.plant.name} has been added to your cart`)
@@ -147,16 +158,19 @@ export class Cart extends React.Component {
 
         {/* previously purchased scroll */}
         <h3 className="center">Previously purchased</h3>
+
         <div className="scroll">
           {pastPurchased.map(item => {
             { console.log("item", item) }
-            return (<div key={item.id} style={{ marginLeft: "10px", marginRight: "10px" }}>
-              <img style={{ width: "180px" }} src={item.plant.imgUrl} alt={item.plant.name} />
-              <p> {item.plant.name}</p>
-
+            return (<div key={item.id} >
+              <img className="scroll-item small" src={item.plant.imgUrl} alt={item.plant.name} />
+              <div className="scroll-name-price-container">
+                <p> {item.plant.name}</p>
+                <p>${item.plant.price}</p>
+              </div>
               {item.plant.inventory === 0 ? null : (
                 <button
-                  className="btn"
+                  className="btn scroll-btn"
                   type="submit"
                   onClick={() => {
                     alert(`${item.plant.name} has been added to your cart`)

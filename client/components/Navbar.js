@@ -11,18 +11,24 @@ const Navbar = ({ handleClick, isLoggedIn, userId, username }) => {
       <nav >
         {isLoggedIn ? (
           <div className="navbar">
-            <div>
+            <div className="nav-left">
               {/* The navbar will show these links after you log in */}
-              <Link to="/home">Grace's Plants</Link>
-              <Link to="/home">Home</Link>
-              <Link to="/plants">Plants</Link>
-              <Link to={`/cart/${userId}`}>Cart</Link>
+              <div className="nav-logo">
+                <Link to="/home">Seeds</Link>
+              </div>
+              <div className="nav-left-links">
+
+                <Link to="/plants">Plants</Link>
+                <Link to={`/cart/${userId}`}>Your Cart</Link>
+              </div>
             </div>
-            <div>
-              <span>Welcome, {username}</span>
-              <a href="#" onClick={handleClick}>
-                Logout
-              </a>
+            <div className="nav-right">
+              <span className="nav-welcome">Welcome, {username}</span>
+              <div className="nav-logout">
+                <a href="#" onClick={handleClick}>
+                  Logout
+                </a>
+              </div>
             </div>
           </div>
         ) : (
@@ -34,7 +40,6 @@ const Navbar = ({ handleClick, isLoggedIn, userId, username }) => {
           </div>
         )}
       </nav>
-      <hr />
     </div>
   )
 };

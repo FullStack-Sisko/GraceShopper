@@ -21,33 +21,18 @@ form div {
 }
 
 
-/* header styles */
+/**** reusable classnames *****/
 
 .center {
     text-align: center;
 }
 
-
-/* nav styles */
-
-.navbar {
-    display: flex;
-    font-size: 1.5rem;
-    background-color: rgb(73, 126, 73);
-    justify-content: space-between;
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-}
-
-.navbar a:hover {
-    color: rgb(239, 239, 239);
+.right {
+    text-align: right;
 }
 
 
-/* button styles */
+/***** button styles *****/
 
 .btn {
     font-size: 1rem;
@@ -74,7 +59,123 @@ form div {
 }
 
 
-/* cart styles */
+/***** home page styles *****/
+
+.home-image {
+    min-height: 100%;
+    min-width: 1024px;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    filter: brightness(60%);
+}
+
+.home-welcome-title {
+    color: white;
+    font-size: 6rem;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+    text-shadow: 4px 4px 12px 000000;
+    border-radius: 25%;
+    font-weight: 800;
+}
+
+.home-btns {
+    display: flex;
+    width: 100%;
+    position: absolute;
+    top: 70%;
+    justify-content: center;
+}
+
+.home-featured-plants,
+.home-all-plants {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 18px;
+    padding: 12px 24px;
+    margin-left: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 15px;
+    border: none;
+}
+
+.home-featured-plants:hover,
+.home-all-plants:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+
+/***** nav styles *****/
+
+.navbar {
+    display: flex;
+    /* background-color: rgb(236, 236, 236); */
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 1rem;
+}
+
+.nav-left {
+    display: flex;
+    align-items: flex-end;
+}
+
+.nav-logo {
+    font-size: 2rem;
+    margin-bottom: -15px;
+}
+
+.nav-left-links {
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-welcome {
+    color: rgb(40, 85, 44);
+    font-weight: 600;
+}
+
+.nav-logout {
+    font-weight: 200;
+}
+
+.navbar a {
+    color: rgb(40, 85, 44);
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    color: rgba(40, 85, 44, 80);
+}
+
+
+/***** footer styles *****/
+
+.footer {
+    display: flex;
+    justify-content: center;
+}
+
+.footer p {
+    margin: 100px 10px 20px;
+    color: rgb(40, 85, 44);
+}
+
+
+/***** cart styles *****/
 
 .cart-title {
     padding: 50px;
@@ -128,13 +229,6 @@ form div {
     justify-content: center;
 }
 
-.scroll {
-    display: flex;
-    overflow-x: scroll;
-    justify-content: center;
-    align-items: flex-end;
-}
-
 .checkout-total-container {
     display: flex;
     flex-direction: column;
@@ -144,4 +238,161 @@ form div {
 .checkout-btn,
 .order-total {
     padding-right: 20%;
+}
+
+.scroll {
+    display: flex;
+    overflow-x: scroll;
+    justify-content: flex-start;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.scroll-item {
+    padding: 10px;
+}
+
+.scroll-name-price-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.scroll-btn {
+    border: none;
+    text-align: center;
+    margin-top: -10px;
+    font-weight: 200;
+    font-size: 0.8rem;
+}
+
+.scroll-btn:hover {
+    color: rgba(40, 85, 44, 0.5);
+    background-color: white;
+    font-weight: 200;
+    font-size: 0.8rem;
+}
+
+
+/***** All plants page *****/
+
+.all-plants-title {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.all-plants-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-auto-rows: 1fr;
+    column-gap: 5px;
+    row-gap: 5px;
+    align-items: center;
+}
+
+.all-plants-single-plant-container {
+    /* display: flex; */
+    /* direction: column; */
+    padding: 10px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.all-plants-image {
+    max-width: 300px;
+}
+
+
+/* .all-plants-image-container .all-plants-save-btn {
+    position: absolute;
+    top: 0;
+    right: 10px;
+} */
+
+.all-plants-add-btn {
+    right: 10px;
+}
+
+.all-plants-save-btn,
+.all-plants-add-btn {
+    border: none;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 25%;
+}
+
+.all-plants-name {
+    text-align: center;
+    color: black;
+    text-transform: uppercase;
+}
+
+.all-plants-info {
+    text-align: left;
+}
+
+.all-plants-description {
+    display: block;
+    letter-spacing: 0.5px;
+    font-weight: 300;
+    font-size: 1.1rem;
+    text-align: justify;
+}
+
+.all-plants-location-care-container {
+    display: flex;
+    justify-content: space-evenly;
+    color: rgb(40, 85, 44);
+    font-weight: 200;
+    letter-spacing: 1px;
+}
+
+.all-plants-info-bottom-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.all-plants-price-cart-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.all-plants-price {
+    padding-right: 5px;
+}
+
+.all-plants-price {
+    padding-right: 5px;
+}
+
+
+/***** Filters styles *****/
+
+.filters-section-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: scroll;
+    margin: 10px;
+}
+
+.filters-container {
+    display: flex;
+}
+
+.filters-title {
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-right: 10px;
+}
+
+.filters-btn {
+    margin: 10px;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    font-weight: 300;
+    border: none;
+}
+
+.filters-btn .active {
+    color: white;
+    background-color: rgb(40, 85, 44);
 }

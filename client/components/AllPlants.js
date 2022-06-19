@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { fetchPlants } from "../store/plants";
 import { Link } from "react-router-dom";
+import { FaRegHeart, FaHeart, FaShoppingCart } from 'react-icons/fa'
+import { Filters } from './Filters'
 
 export class AllPlants extends React.Component {
   componentDidMount() {
@@ -12,22 +14,46 @@ export class AllPlants extends React.Component {
     const { plants } = this.props;
     return (
       <div>
-        <h1>All Plants</h1>
+        <h1 className="all-plants-title center">All Plants</h1>
+        <Filters />
         <ul>
           {plants.length === 0 ? (
             <h3>None Available</h3>
           ) : (
-            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-around" }}>
+            <div className="all-plants-container" >
               {plants.map((plant) => (
                 <div key={plant.id}>
-                  <div style={{ width: "400px" }}>
-                    <Link to={`/plants/${plant.id}`}>
-                      <img src={plant.imgUrl} alt={plant.name} style={{ width: "300px" }} />
-                      <h3>{plant.name}</h3>
-                    </Link>
-                    <p> Description: {plant.description}</p>
-                    <p>Price: {plant.price}</p>
-                    <p>Location: {plant.location}</p>
+
+                  <div className="all-plants-single-plant-container">
+
+                    <div className="all-plants-image-container">
+                      <Link to={`/plants/${plant.id}`}>
+                        <img className="all-plants-image" src={plant.imgUrl} alt={plant.name} />
+                      </Link>
+                    </div>
+
+                    <div className="all-plants-info">
+                      <h3 className="all-plants-name">{plant.name}</h3>
+
+                      <div className="all-plants-location-care-container">
+                        <span className="all-plants-location center">{plant.location}</span>
+                        <span>|</span>
+                        <span className="all-plants-care center">{plant.care}</span>
+                      </div>
+                      <p className="all-plants-description"> {plant.description}</p>
+
+                      <div className="all-plants-info-bottom-container">
+                        <div>
+                          <button type="submit" className="all-plants-save-btn btn save-to-favorites-hover"
+                          >{<FaRegHeart />}</button>
+                        </div>
+                        <div className="all-plants-price-cart-container">
+                          <p className="all-plants-price">${plant.price}</p>
+                          <button type="submit" className="all-plants-add-btn btn add-to-cart-hover"
+                          >{<FaShoppingCart />}</button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
