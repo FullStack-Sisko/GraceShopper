@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
+import { GiPlantRoots } from "react-icons/gi"
 
 const Navbar = ({ handleClick, isLoggedIn, userId, username }) => {
 
@@ -14,12 +15,13 @@ const Navbar = ({ handleClick, isLoggedIn, userId, username }) => {
             <div className="nav-left">
               {/* The navbar will show these links after you log in */}
               <div className="nav-logo">
-                <Link to="/home">Seeds</Link>
+                <Link to="/home"><GiPlantRoots /> Grace's Greens</Link>
               </div>
               <div className="nav-left-links">
 
                 <Link to="/plants">Plants</Link>
                 <Link to={`/cart/${userId}`}>Your Cart</Link>
+                <Link to={`/about`}>Who We Are</Link>
               </div>
             </div>
             <div className="nav-right">

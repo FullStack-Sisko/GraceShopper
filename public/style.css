@@ -23,12 +23,35 @@ form div {
 
 /**** reusable classnames *****/
 
+a {
+    text-transform: none;
+    color: black;
+}
+
+a:hover {
+    color: rgba(0, 0, 0, 0.5);
+}
+
 .center {
     text-align: center;
 }
 
 .right {
     text-align: right;
+}
+
+.title {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    letter-spacing: 2px;
+    font-weight: 300;
+}
+
+.section-header {
+    font-weight: 800;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 100px;
 }
 
 
@@ -50,6 +73,15 @@ form div {
     transform: translateY(-0.05em);
     background: rgb(73, 126, 73);
     color: white;
+}
+
+.btn2 {
+    color: rgb(40, 85, 44);
+    background-color: none;
+}
+
+.btn2:hover {
+    color: rgba(40, 85, 44, 0.5);
 }
 
 .increment,
@@ -84,6 +116,14 @@ form div {
     text-shadow: 4px 4px 12px 000000;
     border-radius: 25%;
     font-weight: 800;
+}
+
+.welcome-grace {
+    font-size: 6rem;
+}
+
+.welcome-green {
+    color: rgb(157, 233, 157);
 }
 
 .home-btns {
@@ -177,10 +217,6 @@ form div {
 
 /***** cart styles *****/
 
-.cart-title {
-    padding: 50px;
-}
-
 .cart-item {
     display: flex;
     width: 100%;
@@ -206,6 +242,12 @@ form div {
 
 .cart-info-bottom-container .btn {
     font-size: 0.85rem;
+    border: none;
+}
+
+.cart-info-bottom-container .btn:hover {
+    color: rgba(40, 85, 44, 0.5);
+    background-color: white;
 }
 
 .cart-item-name,
@@ -275,18 +317,15 @@ form div {
 
 /***** All plants page *****/
 
-.all-plants-title {
-    margin-top: 50px;
-    margin-bottom: 50px;
-}
-
 .all-plants-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-auto-rows: 1fr;
     column-gap: 5px;
     row-gap: 5px;
-    align-items: center;
+    align-items: stretch;
+    justify-items: stretch;
+    margin-right: 30px;
 }
 
 .all-plants-single-plant-container {
@@ -294,7 +333,7 @@ form div {
     /* direction: column; */
     padding: 10px;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.02);
+    background-color: rgba(0, 0, 0, 0.01);
 }
 
 .all-plants-image {
@@ -366,22 +405,12 @@ form div {
 
 /***** Filters styles *****/
 
-.filters-section-container {
+.filters-container {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     overflow-x: scroll;
     margin: 10px;
-}
-
-.filters-container {
-    display: flex;
-}
-
-.filters-title {
-    font-weight: 800;
-    text-transform: uppercase;
-    margin-right: 10px;
 }
 
 .filters-btn {
@@ -395,4 +424,41 @@ form div {
 .filters-btn .active {
     color: white;
     background-color: rgb(40, 85, 44);
+}
+
+
+/**** Single Plant Page Styles *****/
+
+.single-plant-page {
+    display: flex;
+    justify-content: space-around;
+}
+
+.single-plant-image {
+    height: 80vh;
+    width: auto;
+}
+
+.single-plant-info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: center;
+    min-width: 200px;
+    max-width: 400px;
+}
+
+.single-plant-description {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.change-page-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.change-page-container * {
+    padding: 30px;
 }

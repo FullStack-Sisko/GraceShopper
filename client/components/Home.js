@@ -14,13 +14,13 @@ export const Home = props => {
         <img className="home-image" src={"https://images.pexels.com/photos/793012/pexels-photo-793012.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"} alt="potted succulents" />
       </div>
 
-      <h1 className="home-welcome-title">Welcome to <span className="home-seeds">Seeds</span></h1>
+      <h1 className="home-welcome-title"><span className="welcome-grace">Grace's</span><span className="welcome-green"> Greens</span></h1>
 
       <div className="home-btns">
-      <Link to="/plants">
-          <button className="home-all-plants">Shop all plants</button></Link>
+        <Link to="/plants">
+          <button className="home-all-plants">Shop our plants</button></Link>
 
-          <button type="button" className="home-featured-plants">Explore the favorites</button>
+        {/* <button type="button" className="home-featured-plants">Explore the favorites</button> */}
 
       </div>
     </div>

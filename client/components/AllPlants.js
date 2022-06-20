@@ -14,7 +14,7 @@ export class AllPlants extends React.Component {
     const { plants } = this.props;
     return (
       <div>
-        <h1 className="all-plants-title center">All Plants</h1>
+        <h1 className="all-plants-title center title">All Plants</h1>
         <Filters />
         <ul>
           {plants.length === 0 ? (
@@ -44,12 +44,12 @@ export class AllPlants extends React.Component {
 
                       <div className="all-plants-info-bottom-container">
                         <div>
-                          <button type="submit" className="all-plants-save-btn btn save-to-favorites-hover"
+                          <button type="submit" title="Save for Later" className="all-plants-save-btn btn save-to-favorites-hover"
                           >{<FaRegHeart />}</button>
                         </div>
                         <div className="all-plants-price-cart-container">
                           <p className="all-plants-price">${plant.price}</p>
-                          <button type="submit" className="all-plants-add-btn btn add-to-cart-hover"
+                          <button type="submit" title="Add To Cart" className="all-plants-add-btn btn add-to-cart-hover"
                           >{<FaShoppingCart />}</button>
                         </div>
                       </div>

@@ -40,7 +40,7 @@ export class Cart extends React.Component {
 
     return (
       <div>
-        <h1 className="center cart-title">Your Cart</h1>
+        <h1 className="center cart-title title">Your Cart</h1>
 
         {currentCart.length === 0 || (!currentCart[0] || !currentCart[0].plant) ? (
           <div className="center">
@@ -61,9 +61,10 @@ export class Cart extends React.Component {
               </div>
 
               <div className="cart-info-container">
+                <h3 className="cart-item-name">{item.plant.name}</h3>
+
                 <div className="cart-info-top-container">
 
-                  <h3 className="cart-item-name">{item.plant.name}</h3>
 
                   {/* quantity and add/subtract buttons */}
                   <div className="cart-item-quantity">
@@ -131,14 +132,14 @@ export class Cart extends React.Component {
         }
 
         {/* saved for later scroll */}
-        <h3 className="center">Saved for Later</h3>
+        <h3 className="center section-header">Saved for Later</h3>
         <div className="scroll">
           {laterCart.map(item => {
             { console.log("item", item) }
             return (<div key={item.id} >
               <img className="scroll-item small" src={item.plant.imgUrl} alt={item.plant.name} />
               <div className="scroll-name-price-container">
-                <p> {item.plant.name}</p>
+                <Link to={`/plants/${item.plant.id}`}> <p> {item.plant.name}</p></Link>
                 <p>${item.plant.price}</p>
               </div>
               {item.plant.inventory === 0 ? null : (
@@ -157,7 +158,7 @@ export class Cart extends React.Component {
         </div>
 
         {/* previously purchased scroll */}
-        <h3 className="center">Previously purchased</h3>
+        <h3 className="center section-header">Previously purchased</h3>
 
         <div className="scroll">
           {pastPurchased.map(item => {
@@ -165,7 +166,7 @@ export class Cart extends React.Component {
             return (<div key={item.id} >
               <img className="scroll-item small" src={item.plant.imgUrl} alt={item.plant.name} />
               <div className="scroll-name-price-container">
-                <p> {item.plant.name}</p>
+                <Link to={`/plants/${item.plant.id}`}> <p> {item.plant.name}</p></Link>
                 <p>${item.plant.price}</p>
               </div>
               {item.plant.inventory === 0 ? null : (
@@ -183,7 +184,7 @@ export class Cart extends React.Component {
           })
           }
         </div>
-      </div >
+      </div>
     );
   }
 }

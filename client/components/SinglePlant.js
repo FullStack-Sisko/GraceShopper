@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Link } from "react-router-dom";
+import { Route, Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchSinglePlant } from "../store/singlePlant";
 import { createCartItem, incrementCartItemQty, getAllCartItems } from "../store/cart_item";
@@ -50,41 +50,56 @@ class SinglePlant extends React.Component {
     console.log("props", this.props)
 
 
-    return (
-      <div>
-        <h1>Plant Details:</h1>
-        <div>
-          <h1>{plant.name}</h1>
-          <p>Description: {plant.description}</p>
-          <p>Price: {plant.price}</p>
-          <p>Location: {plant.location}</p>
-          <p>Care: {plant.care}</p>
-          <p>Stock: {plant.inventory ? <span>item in stock</span> : <span>item out of stock</span>}</p>
+    return (<div>
+      <div className="single-plant-page">
+
+        <div className="single-plant-image-container">
+          <img className="single-plant-image" src={plant.imgUrl} alt={plant.name} />
         </div>
 
-        {plant.inventory === 0 ? null : (
-          <button className="btn"
-            type="submit"
-            onClick={() => {
-              alert(`${plant.name} has been added to your cart`)
-              this.props.createCartItem(plant.id, userId)
-            }}
+        {/* single plant info and details */}
+        <div className="single-plant-info-container">
+          <h1>{plant.name}</h1>
+          <p className="single-plant-description">{plant.description}</p>
+          <p>${plant.price}</p>
+          <p>{plant.location}</p>
+          <p>{plant.care}</p>
+          <p>Stock: {plant.inventory ? <span>item in stock</span> : <span>item out of stock</span>}</p>
 
-          //   //check if this user has this plant is already in this users cart and isPurchased is false... need to access foreign key of users' cart_items
 
-          //   (this.state.cart.includes(item => (item.id === user.id && item.isPurchased === false)) ?
+          {plant.inventory === 0 ? null : (
+            <button className="btn"
+              type="submit"
+              onClick={() => {
+                alert(`${plant.name} has been added to your cart`)
+                this.props.createCartItem(plant.id, userId)
+              }}
 
-          //   incrementCartItemQty : (cart_itemId) => dispatch(incrementCartItemQty(cart_itemId, history));
+            //   //check if this user has this plant is already in this users cart and isPurchased is false... need to access foreign key of users' cart_items
 
-          //   alert("item was already in cart, cart total updated")
+            //   (this.state.cart.includes(item => (item.id === user.id && item.isPurchased === false)) ?
 
-          //create new cart item if doesn't already exist as unpurchased cart item
+            //   incrementCartItemQty : (cart_itemId) => dispatch(incrementCartItemQty(cart_itemId, history));
 
-          >
-            Add to Cart
-          </button>)}
+            //   alert("item was already in cart, cart total updated")
+
+            //create new cart item if doesn't already exist as unpurchased cart item
+
+            >
+              Add to Cart
+            </button>)}
+        </div>
+      </div>
+
+      <div className="change-page-container">
+
+        {plant.id > 1 ? (
+          <Link to={`/plants/${plant.id - 1}`}>previous</Link>) : <span></span>}
+
+        <Link to={`/plants/${plant.id + 1}`}>next</Link>
 
       </div>
+    </div>
     );
   }
 }
