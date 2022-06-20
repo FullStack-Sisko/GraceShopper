@@ -1,10 +1,24 @@
-const router = require('express').Router()
-const { models: { User, Order, Plant, Cart_Item } } = require('../db')
+const router = require("express").Router();
+const {
+  models: { User, Order, Plant, Cart_Item },
+} = require("../db");
 
+const requireToken = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization;
+    const user = await User.findByToken(token);
+    req.user = user;
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
 
 // display cart (all cart_items belonging to :userId)
-router.get('/:userId', async (req, res, next) => {
-  let cart_items
+router.get("/:userId", requireToken, async (req, res, next) => {
+  let cart_items;
+  const authenticatedUserId = req.user.dataValues.id;
+
   try {
     cart_items = await Cart_Item.findAll({
       where: {
@@ -12,21 +26,27 @@ router.get('/:userId', async (req, res, next) => {
       },
       include: [User, Plant]
     });
-  }
-  catch (err) {
+    if (authenticatedUserId == req.params.userId) {
+      res.status(201).send(cart_items)
+    } else {
+      throw new Error("Not authorized");
+    }
+  } catch (err) {
     next(err);
   }
-  res.json(cart_items);
-})
+});
 
 //create new cart_item (need userId and plantId)
-router.post('/:userId/:plantId', async (req, res, next) => {
+router.post("/:userId/:plantId", async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId)
+    const user = await User.findByPk(req.params.userId);
 
-    const plant = await Plant.findByPk(req.params.plantId)
+    const plant = await Plant.findByPk(req.params.plantId);
 
-    const cart_item = await Cart_Item.create({ userId: user.id, plantId: plant.id })
+    const cart_item = await Cart_Item.create({
+      userId: user.id,
+      plantId: plant.id,
+    });
 
     res.status(201).send(cart_item);
   } catch (error) {
@@ -35,54 +55,49 @@ router.post('/:userId/:plantId', async (req, res, next) => {
 });
 
 //delete cart_item from cart
-router.delete('/:cart_itemId', async (req, res, next) => {
-
+router.delete("/:cart_itemId", async (req, res, next) => {
   try {
-    const cart_item = await Cart_Item.findByPk(req.params.cart_itemId)
-    cart_item.destroy()
-    res.send(cart_item)
+    const cart_item = await Cart_Item.findByPk(req.params.cart_itemId);
+    cart_item.destroy();
+    res.send(cart_item);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
 // increment quantity of item in cart
-router.put('/inc/:cart_itemId', async (req, res, next) => {
+router.put("/inc/:cart_itemId", async (req, res, next) => {
   try {
+    const cart_item = await Cart_Item.findByPk(req.params.cart_itemId);
 
-    const cart_item = await Cart_Item.findByPk(req.params.cart_itemId)
-
-    res.send(await cart_item.increment('quantity')
-    )
+    res.send(await cart_item.increment("quantity"));
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
 // decrement quantity of item in cart
-router.put('/dec/:cart_itemId', async (req, res, next) => {
+router.put("/dec/:cart_itemId", async (req, res, next) => {
   try {
+    const cart_item = await Cart_Item.findByPk(req.params.cart_itemId);
 
-    const cart_item = await Cart_Item.findByPk(req.params.cart_itemId)
-
-    res.send(await cart_item.decrement('quantity')
-    )
+    res.send(await cart_item.decrement("quantity"));
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
 //purchase cart and delete items
-router.delete('/purchase/:userId', async (req, res, next) => {
-
+router.delete("/purchase/:userId", async (req, res, next) => {
   try {
-    const cart_items = await Cart_Item.findAll({ where: { userid: req.params.userId } })
-    cart_items.destroy()
-    res.send(cart_items)
+    const cart_items = await Cart_Item.findAll({
+      where: { userid: req.params.userId },
+    });
+    cart_items.destroy();
+    res.send(cart_items);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
-
-module.exports = router
+module.exports = router;

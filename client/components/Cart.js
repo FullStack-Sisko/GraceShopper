@@ -20,15 +20,14 @@ export class Cart extends React.Component {
   componentDidUpdate(prevProps) {
     const userId = this.props.match.params.userId
     if (prevProps.cart.length !== this.props.cart.length) {
-      console.log("hi")
       this.props.getAllCartItems(userId);
     }
   }
 
   render() {
-    console.log("props >>>", this.props)
-    console.log("cart >>>", this.props.cart)
-    console.log("state >>>", this.state)
+    // console.log("props >>>", this.props)
+    // console.log("cart >>>", this.props.cart)
+    // console.log("state >>>", this.state)
     const { cart } = this.props;
     // const { quantity } = this.props.cart.plant
     let orderTotal = 0
@@ -41,7 +40,6 @@ export class Cart extends React.Component {
             <h3>Nothing to show</h3>
           ) : (cart.map((item) => {
             orderTotal += (item.plant.price * item.quantity)
-
             return (
               <div key={item.plant.id} style={{ border: "1px solid black" }}>
 

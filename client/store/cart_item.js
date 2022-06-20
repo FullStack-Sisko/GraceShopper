@@ -44,8 +44,15 @@ const decrementedCartItemQty = (cart_item) => ({
 //THUNKS
 
 export const getAllCartItems = (userId) => async (dispatch) => {
-  const { data: cart_items } = await axios.get(`/api/cart_items/${userId}`);
-  dispatch(gotAllCartItems(cart_items))
+  const token = window.localStorage.getItem('token')
+  if (token) {
+    const { data: cart_items } = await axios.get(`/api/cart_items/${userId}`, {
+      headers: {
+        authorization: token
+      }
+    })
+    return dispatch(gotAllCartItems(cart_items))
+  }
 }
 
 export const createCartItem = (plantId, userId) => {
