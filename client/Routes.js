@@ -7,6 +7,8 @@ import { me } from "./store";
 import AllPlants from "./components/AllPlants";
 import SinglePlant from "./components/SinglePlant";
 import Cart from "./components/Cart";
+import AdminHome from "./components/AdminHome";
+import Create from "./components/Create"
 import { About } from "./components/About"
 
 /**
@@ -27,6 +29,8 @@ class Routes extends Component {
             <Route path="/home" component={Home} />
             <Route exact={true} path="/plants/:plantId" component={SinglePlant} />
             <Route path="/plants" component={AllPlants} />
+            <Route path="/admin/create" component={Create} />
+            <Route path="/admin" component={AdminHome} />
             <Route path="/cart/:userId" component={Cart} />
             <Route path="/about" component={About} />
             <Redirect to="/home" />
