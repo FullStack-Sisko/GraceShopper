@@ -7,6 +7,7 @@ import { me } from "./store";
 import AllPlants from "./components/AllPlants";
 import SinglePlant from "./components/SinglePlant";
 import Cart from "./components/Cart";
+import { About } from "./components/About"
 
 /**
  * COMPONENT
@@ -24,9 +25,10 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
-            <Route path="/plants/:plantId" component={SinglePlant} />
+            <Route exact={true} path="/plants/:plantId" component={SinglePlant} />
             <Route path="/plants" component={AllPlants} />
             <Route path="/cart/:userId" component={Cart} />
+            <Route path="/about" component={About} />
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -37,6 +39,7 @@ class Routes extends Component {
             <Route path="/plants/:plantId" component={SinglePlant} />
             <Route path="/plants" component={AllPlants} />
             <Route path="/cart/:userId" component={Cart} />
+            <Route path="/about" component={About} />
 
           </Switch>
         )}
@@ -53,6 +56,7 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
+    userId: state.auth.id
   };
 };
 

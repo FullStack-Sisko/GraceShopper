@@ -2,23 +2,36 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
+import { GiPlantRoots } from "react-icons/gi"
 
 const Navbar = ({ handleClick, isLoggedIn, userId, username }) => {
 
+
   return (
     <div>
-      <h1>Plants</h1>
-      <nav>
+      <nav >
         {isLoggedIn ? (
-          <div>
-            {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
-            <Link to="/plants">Plants</Link>
-            <Link to={`/cart/${userId}`}>Cart</Link>
-            <a href="#" onClick={handleClick}>
-              Logout
-            </a>
-            <span>Welcome, {username}</span>
+          <div className="navbar">
+            <div className="nav-left">
+              {/* The navbar will show these links after you log in */}
+              <div className="nav-logo">
+                <Link to="/home"><GiPlantRoots /> Grace's Greens</Link>
+              </div>
+              <div className="nav-left-links">
+
+                <Link to="/plants">Plants</Link>
+                <Link to={`/cart/${userId}`}>Your Cart</Link>
+                <Link to={`/about`}>Who We Are</Link>
+              </div>
+            </div>
+            <div className="nav-right">
+              <span className="nav-welcome">Welcome, {username}</span>
+              <div className="nav-logout">
+                <a href="#" onClick={handleClick}>
+                  Logout
+                </a>
+              </div>
+            </div>
           </div>
         ) : (
           <div>
@@ -29,7 +42,6 @@ const Navbar = ({ handleClick, isLoggedIn, userId, username }) => {
           </div>
         )}
       </nav>
-      <hr />
     </div>
   )
 };
