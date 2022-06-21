@@ -27,9 +27,9 @@ export class Cart extends React.Component {
   }
 
   render() {
-    console.log("props >>>", this.props)
-    console.log("cart >>>", this.props.cart)
-    console.log("state >>>", this.state)
+    // console.log("props >>>", this.props)
+    // console.log("cart >>>", this.props.cart)
+    // console.log("state >>>", this.state)
     const { cart } = this.props;
     // const { quantity } = this.props.cart.plant
     let userId = this.props.userId
@@ -42,6 +42,7 @@ export class Cart extends React.Component {
     return (
       <div>
         <h1 className="center cart-title title">Your Cart</h1>
+
 
         {currentCart.length === 0 || (!currentCart[0] || !currentCart[0].plant) ? (
           <div className="center">

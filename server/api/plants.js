@@ -45,7 +45,7 @@ router.put("/:plantId", async (req, res, next) => {
 router.delete("/:plantId", async (req, res, next) => {
   try {
     const plant = await Plant.findByPk(req.params.plantId);
-    await plant.destory();
+    await plant.destroy();
     res.json(plant);
   } catch (err) {
     next(err);
