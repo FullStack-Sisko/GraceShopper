@@ -18,6 +18,8 @@ const SAVED_FOR_LATER = 'SAVED_FOR_LATER'
 
 const MOVED_SAVED_TO_CART = 'MOVED_SAVED_TO_CART'
 
+const CREATED_LATER_CART_ITEM = 'CREATED_LATER_CART_ITEM'
+
 
 //ACTION CREATORS
 
@@ -53,6 +55,11 @@ const savedForLater = (cart_item) => ({
 const movedSavedToCart = (cart_item) => ({
   type: MOVED_SAVED_TO_CART, cart_item
 })
+
+const createdLaterCartItem = (cart_item) => ({
+  type: CREATED_LATER_CART_ITEM, cart_item
+})
+
 //THUNKS
 
 export const getAllCartItems = (userId) => async (dispatch) => {
@@ -117,6 +124,14 @@ export const moveSavedToCart = (cart_itemId, history, userId) => {
   }
 }
 
+export const createLaterCartItem = (plantId, userId, history) => {
+  return async (dispatch) => {
+    const { data: cart_item } = axios.post(`/api/cart_items/later/${userId}/${plantId}`);
+    dispatch(createdLaterCartItem(cart_item));
+    // history.push(`/cart/${userId}`)
+  }
+}
+
 
 // export const decrementCartItemQty = (cart_itemId) => {
 //   return async (dispatch) => {
@@ -145,8 +160,8 @@ const cartItemsReducer = (state = [], action) => {
       return action.cart_item;
     case MOVED_SAVED_TO_CART:
       return action.cart_item
-
-
+    case CREATED_LATER_CART_ITEM:
+      return [...state, action.cart_item]
 
     default:
       return state;

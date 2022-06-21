@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { createCartItem, getAllCartItems, deleteCartItem, updateCartItem, purchaseCart, incrementCartItemQty, decrementCartItemQty, saveForLater, moveSavedToCart } from "../store/cart_item";
 import { Link } from "react-router-dom";
+import { FaTrash } from "react-icons/fa"
 
 export class Cart extends React.Component {
   constructor(props) {
@@ -141,17 +142,21 @@ export class Cart extends React.Component {
               <div className="scroll-name-price-container">
                 <Link to={`/plants/${item.plant.id}`}> <p> {item.plant.name}</p></Link>
                 <p>${item.plant.price}</p>
+
               </div>
-              {item.plant.inventory === 0 ? null : (
-                <button
-                  className="btn scroll-btn"
-                  type="submit"
-                  onClick={() => {
-                    alert(`${item.plant.name} has been added to your cart`)
-                    this.props.moveSavedToCart(item.id)
-                  }}  >
-                  Add to Cart
-                </button>)}
+              <div className="scroll-add-x-container">
+                {item.plant.inventory === 0 ? null : (
+                  <button
+                    className="btn scroll-btn"
+                    type="submit"
+                    onClick={() => {
+                      alert(`${item.plant.name} has been added to your cart`)
+                      this.props.moveSavedToCart(item.id)
+                    }}  >
+                    Add to Cart
+                  </button>)}
+                <button className="btn2 remove-from-saved" type="submit" onClick={() => this.props.deleteCartItem(item.id)}><FaTrash /></button>
+              </div>
             </div>)
           })
           }

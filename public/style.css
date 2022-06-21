@@ -153,6 +153,15 @@ a:hover {
 }
 
 
+/***** about page styles *****/
+
+.about-text {
+    padding-top: 50px;
+    padding-left: 120px;
+    padding-right: 120px;
+}
+
+
 /***** nav styles *****/
 
 .navbar {
@@ -297,6 +306,17 @@ a:hover {
 .scroll-name-price-container {
     display: flex;
     justify-content: space-around;
+}
+
+.scroll-add-x-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.remove-from-saved {
+    border: none;
+    background: white;
+    margin-top: -20px;
 }
 
 .scroll-btn {

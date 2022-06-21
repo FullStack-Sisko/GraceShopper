@@ -125,6 +125,19 @@ router.put('/saved/:cart_itemId', async (req, res, next) => {
   }
 })
 
+//create new cart_item and save it for later
+router.post('/later/:userId/:plantId', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId)
 
+    const plant = await Plant.findByPk(req.params.plantId)
+
+    const cart_item = await Cart_Item.create({ userId: user.id, plantId: plant.id, purchaseStatus: "later" })
+
+    res.status(201).send(cart_item);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router
