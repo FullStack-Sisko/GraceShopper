@@ -45,9 +45,9 @@ router.post("/:userId/:plantId", async (req, res, next) => {
 
     const cart_item = await Cart_Item.create({
       userId: user.id,
-      plantId: plant.id,
-    });
-
+      plantId: plant.id
+    }, include: [Plant]
+    );
     res.status(201).send(cart_item);
   } catch (error) {
     next(error);
@@ -95,7 +95,7 @@ router.put('/purchase/:userId', async (req, res, next) => {
 // increment quantity of item in cart
 router.put("/inc/:cart_itemId", async (req, res, next) => {
   try {
-    const cart_item = await Cart_Item.findByPk(req.params.cart_itemId);
+    const cart_item = await Cart_Item.findByPk(req.params.cart_itemId, { include: [User, Plant] });
 
     res.send(await cart_item.increment("quantity"));
   } catch (error) {
@@ -106,7 +106,7 @@ router.put("/inc/:cart_itemId", async (req, res, next) => {
 // decrement quantity of item in cart
 router.put("/dec/:cart_itemId", async (req, res, next) => {
   try {
-    const cart_item = await Cart_Item.findByPk(req.params.cart_itemId);
+    const cart_item = await Cart_Item.findByPk(req.params.cart_itemId, { include: [User, Plant] });
 
     res.send(await cart_item.decrement("quantity"));
   } catch (error) {
@@ -136,11 +136,11 @@ router.put('/saved/:cart_itemId', async (req, res, next) => {
       { where: { id: req.params.cart_itemId } })
 
     res.send(cart_item)
-    }
-    catch(error){
-      next(error);
-    }
-  })
+  }
+  catch (error) {
+    next(error);
+  }
+})
 //purchase cart and delete items
 router.delete("/purchase/:userId", async (req, res, next) => {
   try {
@@ -157,11 +157,12 @@ router.delete("/purchase/:userId", async (req, res, next) => {
 //create new cart_item and save it for later
 router.post('/later/:userId/:plantId', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId)
 
-    const plant = await Plant.findByPk(req.params.plantId)
-
-    const cart_item = await Cart_Item.create({ userId: user.id, plantId: plant.id, purchaseStatus: "later" })
+    const cart_item = await Cart_Item.create({
+      userId: req.params.userId,
+      plantId: req.params.plantId,
+      purchaseStatus: "later"
+    })
 
     res.status(201).send(cart_item);
   } catch (error) {

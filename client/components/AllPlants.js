@@ -48,6 +48,7 @@ export class AllPlants extends React.Component {
                         <div>
                           <button type="submit" title="Save for Later" className="all-plants-save-btn btn save-to-favorites-hover" onClick={() => {
                             alert(`${plant.name} has been added to your saved for later`)
+                            console.log(plant.id, userId)
                             this.props.createLaterCartItem(plant.id, userId)
                           }}
                           >{<FaRegHeart />}</button>

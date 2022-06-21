@@ -76,7 +76,7 @@ export const getAllCartItems = (userId) => async (dispatch) => {
 
 export const createCartItem = (plantId, userId, history) => {
   return async (dispatch) => {
-    const { data: cart_item } = axios.post(`/api/cart_items/${userId}/${plantId}`);
+    const { data: cart_item } = await axios.post(`/api/cart_items/${userId}/${plantId}`);
     dispatch(createdCartItem(cart_item));
     // history.push(`/cart/${userId}`)
   }
@@ -133,7 +133,9 @@ export const moveSavedToCart = (cart_itemId, history, userId) => {
 
 export const createLaterCartItem = (plantId, userId, history) => {
   return async (dispatch) => {
-    const { data: cart_item } = axios.post(`/api/cart_items/later/${userId}/${plantId}`);
+    console.log(userId)
+    console.log(plantId)
+    const { data: cart_item } = await axios.post(`/api/cart_items/later/${userId}/${plantId}`);
     dispatch(createdLaterCartItem(cart_item));
     // history.push(`/cart/${userId}`)
   }
@@ -155,17 +157,22 @@ const cartItemsReducer = (state = [], action) => {
       return action.cart_items;
     case CREATED_CART_ITEM:
       return [...state, action.cart_item];
+
     case DELETED_CART_ITEM:
       return state.filter((cart_item) => cart_item.id !== action.cart_item.id);
     case PURCHASED_CART:
       return action.cart_items
+
     case INCREMENTED_CART_ITEM_QTY:
-      return action.cart_item;
+      return state.map((cart_item) => cart_item.id === action.cart_item.id ? action.cart_item : cart_item);
+    // return [...state, action.cart_item.quantity]
+
     case DECREMENTED_CART_ITEM_QTY:
-      return action.cart_item;
+      return state.map((cart_item) => cart_item.id === action.cart_item.id ? action.cart_item : cart_item);
     case SAVED_FOR_LATER:
       return action.cart_item;
     case MOVED_SAVED_TO_CART:
+
       return action.cart_item
     case CREATED_LATER_CART_ITEM:
       return [...state, action.cart_item]
