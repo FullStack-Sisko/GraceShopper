@@ -22,6 +22,7 @@ const Navbar = ({ handleClick, isLoggedIn, userId, username }) => {
                 <Link to="/plants">Plants</Link>
                 <Link to={`/cart/${userId}`}>Your Cart</Link>
                 <Link to={`/about`}>Who We Are</Link>
+                <Link to="/admin">Admin</Link>
               </div>
             </div>
             <div className="nav-right">

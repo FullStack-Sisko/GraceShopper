@@ -29,7 +29,7 @@ export const createPlant = (plant, history) => async (dispatch) => {
   try {
     const { data: created } = await axios.post("/api/plants", plant);
     dispatch(addPlant(created));
-    history.push("/plants");
+    history.push("/admin");
   } catch (error) {
     console.error(error);
   }
@@ -45,10 +45,11 @@ export const updatePlant = (plant, history) => async (dispatch) => {
   }
 };
 
-export const deletePlant = (id) => async (dispatch) => {
+export const deletePlant = (id, history) => async (dispatch) => {
   try {
     const { data: plant } = await axios.delete(`/api/plants/${id}`);
     dispatch(removePlant(plant));
+    history.push("/admin")
   } catch (error) {
     console.error(error);
   }
