@@ -7,10 +7,11 @@ import { FaTrash } from "react-icons/fa"
 export class Cart extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   cart: this.cart || [{ purchaseStatus: null }]
-    // }
-    // this.handleClick = this.handleClick.bind(this)
+    this.state = {
+      cart_item: "",
+    }
+    // this.handleIncrement = this.handleIncrement.bind(this)
+    // this.handleDecrement = this.handleDecrement.bind(this)
   }
 
   componentDidMount() {
@@ -18,20 +19,11 @@ export class Cart extends React.Component {
     this.props.getAllCartItems(userId);
   }
 
-  componentDidUpdate(prevProps) {
-    const userId = this.props.match.params.userId
-    if (prevProps.cart.length !== this.props.cart.length) {
-      console.log("component updated")
-      this.props.getAllCartItems(userId);
-    }
-  }
 
   render() {
-    // console.log("props >>>", this.props)
-    // console.log("cart >>>", this.props.cart)
-    // console.log("state >>>", this.state)
+
     const { cart } = this.props;
-    // const { quantity } = this.props.cart.plant
+
     let userId = this.props.userId
     let orderTotal = 0
 
@@ -53,7 +45,7 @@ export class Cart extends React.Component {
 
           </div>
         ) : (currentCart.map((item) => {
-          orderTotal += (item.plant.price * item.quantity)
+          { orderTotal += (item.plant.price * item.quantity) }
 
           return (
             <div key={item.plant.id} className="cart-item">
@@ -66,6 +58,8 @@ export class Cart extends React.Component {
                 <h3 className="cart-item-name">{item.plant.name}</h3>
 
                 <div className="cart-info-top-container">
+
+                  {/* */}
 
 
                   {/* quantity and add/subtract buttons */}
@@ -104,14 +98,16 @@ export class Cart extends React.Component {
                 {/* move item to saved for later */}
                 <div className="cart-info-bottom-container">
                   <button className="btn later" type="submit" onClick={() => {
-                    const result = confirm("Are you sure you'd like to remove this item from your cart and save it for later?")
-                    if (result) this.props.saveForLater(item.id, history)
+                    // const result = confirm("Are you sure you'd like to remove this item from your cart and save it for later?")
+                    // if (result)
+                    this.props.saveForLater(item.id, history)
                   }}>save for later</button>
 
                   {/* remove item from cart */}
                   <button className="btn remove" type="submit" onClick={() => {
-                    const result = confirm("Are you sure you don't want to give this plant a new home?")
-                    if (result) this.props.deleteCartItem(item.id, history)
+                    // const result = confirm("Are you sure you don't want to give this plant a new home?")
+                    // if (result)
+                    this.props.deleteCartItem(item.id, history)
                   }}>remove from cart</button>
                 </div>
 
