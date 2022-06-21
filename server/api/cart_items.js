@@ -46,7 +46,7 @@ router.post("/:userId/:plantId", async (req, res, next) => {
     const cart_item = await Cart_Item.create({
       userId: user.id,
       plantId: plant.id
-    }, include: [Plant]
+    }
     );
     res.status(201).send(cart_item);
   } catch (error) {
