@@ -136,7 +136,11 @@ router.put('/saved/:cart_itemId', async (req, res, next) => {
       { where: { id: req.params.cart_itemId } })
 
     res.send(cart_item)
-
+    }
+    catch(error){
+      next(error);
+    }
+  })
 //purchase cart and delete items
 router.delete("/purchase/:userId", async (req, res, next) => {
   try {
