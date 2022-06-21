@@ -26,8 +26,14 @@ export const setPlants = (plants) => ({
 });
 
 export const createPlant = (plant, history) => async (dispatch) => {
+  const token = window.localStorage.getItem('token')
+
   try {
-    const { data: created } = await axios.post("/api/plants", plant);
+    const { data: created } = await axios.post("/api/plants", plant, {
+      headers: {
+        authorization: token
+      }
+    });
     dispatch(addPlant(created));
     history.push("/admin");
   } catch (error) {
@@ -36,8 +42,14 @@ export const createPlant = (plant, history) => async (dispatch) => {
 };
 
 export const updatePlant = (plant, history) => async (dispatch) => {
+  const token = window.localStorage.getItem('token')
+
   try {
-    const { data: updated } = await axios.put(`/api/plants/${plant.id}`, plant);
+    const { data: updated } = await axios.put(`/api/plants/${plant.id}`, plant, {
+      headers: {
+        authorization: token
+      }
+    });
     dispatch(editPlant(updated));
     history.push("/plants");
   } catch (error) {
@@ -46,8 +58,14 @@ export const updatePlant = (plant, history) => async (dispatch) => {
 };
 
 export const deletePlant = (id, history) => async (dispatch) => {
+  const token = window.localStorage.getItem('token')
+
   try {
-    const { data: plant } = await axios.delete(`/api/plants/${id}`);
+    const { data: plant } = await axios.delete(`/api/plants/${id}`, {
+      headers: {
+        authorization: token
+      }
+    });
     dispatch(removePlant(plant));
     history.push("/admin")
   } catch (error) {

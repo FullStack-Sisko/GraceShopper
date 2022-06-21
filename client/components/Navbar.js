@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { logout } from "../store";
 import { GiPlantRoots } from "react-icons/gi"
 
-const Navbar = ({ handleClick, isLoggedIn, userId, username }) => {
+const Navbar = ({ handleClick, isLoggedIn, userId, username, isAdmin }) => {
 
 
   return (
@@ -22,7 +22,7 @@ const Navbar = ({ handleClick, isLoggedIn, userId, username }) => {
                 <Link to="/plants">Plants</Link>
                 <Link to={`/cart/${userId}`}>Your Cart</Link>
                 <Link to={`/about`}>Who We Are</Link>
-                <Link to="/admin">Admin</Link>
+                {isAdmin&&<Link to="/admin">Admin</Link>}
               </div>
             </div>
             <div className="nav-right">
@@ -54,7 +54,8 @@ const mapState = (state) => {
   return {
     isLoggedIn: !!state.auth.id,
     userId: state.auth.id,
-    username: state.auth.username
+    username: state.auth.username,
+    isAdmin: state.auth.isAdmin
   };
 };
 
