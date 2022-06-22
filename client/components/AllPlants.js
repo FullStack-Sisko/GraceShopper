@@ -9,7 +9,6 @@ import { createCartItem, createLaterCartItem } from "../store/cart_item"
 export class AllPlants extends React.Component {
   constructor(props) {
     super(props)
-
   }
   componentDidMount() {
     this.props.getPlants();

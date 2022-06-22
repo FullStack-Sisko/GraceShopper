@@ -64,12 +64,15 @@ class SinglePlant extends React.Component {
         </div>
       </div>
 
+
+      {/* next and previous buttons, hard coded checks against quantity of plants */}
       <div className="change-page-container">
 
         {plant.id > 1 ? (
           <Link to={`/plants/${plant.id - 1}`}>previous</Link>) : <span></span>}
 
-        <Link to={`/plants/${plant.id + 1}`}>next</Link>
+        {plant.id >= 19 ? (<span></span>) : (
+          <Link to={`/plants/${plant.id + 1}`}>next</Link>)}
 
       </div>
     </div>
