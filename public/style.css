@@ -277,7 +277,15 @@ a:hover {
 
 .checkout-btn {
     display: flex;
+    font-size: 2rem;
     justify-content: center;
+    color: rgb(40, 85, 44);
+    background-color: white;
+}
+
+.checkout-btn:hover {
+    color: rgba(40, 85, 44, 0.5);
+    cursor: pointer;
 }
 
 .checkout-total-container {

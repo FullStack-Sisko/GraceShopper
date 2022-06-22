@@ -132,9 +132,8 @@ export class Cart extends React.Component {
           currentCart.length === 0 || (!currentCart[0] || !currentCart[0].plant) ? null : (<div className="checkout-total-container">
             <h3 className="center order-total">Order Total Price: ${orderTotal} </h3>
 
-            <div className="checkout-btn">
-              <button className="btn center" type="submit" onClick={() => this.props.purchaseCart(userId)}>Complete Checkout</button>
-            </div>
+            <Link className="checkout-btn" to={`/checkout/${userId}`}>Complete Checkout</Link>
+
           </div>)
         }
 
