@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchSinglePlant } from "../store/singlePlant";
 import { createCartItem, incrementCartItemQty, getAllCartItems } from "../store/cart_item";
@@ -20,6 +20,15 @@ class SinglePlant extends React.Component {
     } catch (err) {
       console.error(err);
     }
+  }
+
+  componentDidUpdate(prevProps) {
+    try {
+      const plantId = this.props.match.params.plantId;
+      if (plantId !== prevProps.match.params.plantId) {
+        this.props.loadSinglePlant(plantId);
+      }
+    } catch (error) { console.error(error) }
   }
 
   render() {

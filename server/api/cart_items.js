@@ -43,11 +43,16 @@ router.post("/:userId/:plantId", async (req, res, next) => {
 
     const plant = await Plant.findByPk(req.params.plantId);
 
-    const cart_item = await Cart_Item.create({
-      userId: user.id,
-      plantId: plant.id
+    const cart_item = await Cart_Item.findOrCreate({
+      where: {
+        userId: user.id,
+        plantId: plant.id,
+        purchaseStatus: "cart"
+      }
     }
     );
+
+
     res.status(201).send(cart_item);
   } catch (error) {
     next(error);
@@ -89,7 +94,6 @@ router.put('/purchase/:userId', async (req, res, next) => {
     next(error)
   }
 })
-
 
 
 // increment quantity of item in cart

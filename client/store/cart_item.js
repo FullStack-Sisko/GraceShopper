@@ -156,6 +156,7 @@ const cartItemsReducer = (state = [], action) => {
     case GOT_ALL_CART_ITEMS:
       return action.cart_items;
     case CREATED_CART_ITEM:
+      let newItem = [action.plant]
       return [...state, action.cart_item];
 
     case DELETED_CART_ITEM:

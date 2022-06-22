@@ -2,11 +2,15 @@ import React from "react";
 import { connect } from "react-redux";
 import { fetchPlants } from "../store/plants";
 import { Link } from "react-router-dom";
-import { FaRegHeart, FaHeart, FaShoppingCart } from 'react-icons/fa'
+// import { FaRegHeart, FaHeart, FaShoppingCart } from 'react-icons/fa'
 import { Filters } from './Filters'
 import { createCartItem, createLaterCartItem } from "../store/cart_item"
 
 export class AllPlants extends React.Component {
+  constructor(props) {
+    super(props)
+
+  }
   componentDidMount() {
     this.props.getPlants();
   }
@@ -44,32 +48,19 @@ export class AllPlants extends React.Component {
                       </div>
                       <p className="all-plants-description"> {plant.description}</p>
 
-                      <div className="all-plants-info-bottom-container">
-                        <div>
-                          <button type="submit" title="Save for Later" className="all-plants-save-btn btn save-to-favorites-hover" onClick={() => {
-                            alert(`${plant.name} has been added to your saved for later`)
-                            console.log(plant.id, userId)
-                            this.props.createLaterCartItem(plant.id, userId)
-                          }}
-                          >{<FaRegHeart />}</button>
-                        </div>
-                        <div className="all-plants-price-cart-container">
-                          <p className="all-plants-price">${plant.price}</p>
-                          <button type="submit" title="Add To Cart" className="all-plants-add-btn btn add-to-cart-hover"
-                            onClick={() => {
-                              alert(`${plant.name} has been added to your cart`)
-                              console.log(plant.id, userId)
-                              this.props.createCartItem(plant.id, userId)
-                            }}
-                          >{<FaShoppingCart />}</button>
-                        </div>
+
+                      <div className="all-plants-price-cart-container">
+                        <p className="all-plants-price">${plant.price}</p>
+                        <p>{null}</p>
                       </div>
+
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-          )}
+          )
+          }
 
         </ul>
       </div>
@@ -84,12 +75,12 @@ const mapState = (state) => {
   };
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, { history }) => {
   return {
     getPlants: () => dispatch(fetchPlants()),
     createLaterCartItem: (plantId, userId) => dispatch(createLaterCartItem((plantId, userId, history))),
     createCartItem: (plantId, userId) => dispatch(createCartItem((plantId, userId, history)))
-  };
+  }
 };
 
 export default connect(mapState, mapDispatch)(AllPlants);

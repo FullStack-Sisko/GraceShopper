@@ -8,7 +8,8 @@ export class Cart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cart_item: "",
+      cart: this.props.cart || [],
+      plant: this.props.plant || {}
     }
     // this.handleIncrement = this.handleIncrement.bind(this)
     // this.handleDecrement = this.handleDecrement.bind(this)
@@ -17,6 +18,14 @@ export class Cart extends React.Component {
   componentDidMount() {
     const userId = this.props.match.params.userId
     this.props.getAllCartItems(userId);
+  }
+
+  componentDidUpdate(prevProps) {
+    const userId = this.props.match.params.userId
+    if (prevProps.cart.length !== this.props.cart.length) {
+      console.log("component updated")
+      this.props.getAllCartItems(userId);
+    }
   }
 
 
@@ -210,7 +219,5 @@ const mapDispatch = (dispatch, { history }) => {
     createCartItem: (plantId, userId) => dispatch(createCartItem(plantId, userId, history))
   };
 };
-
-// deleteCartItem, purchaseCart, incrementCartItemQty, decrementCartItemQty
 
 export default connect(mapState, mapDispatch)(Cart);
