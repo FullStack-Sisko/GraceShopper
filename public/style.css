@@ -91,6 +91,24 @@ a:hover {
 }
 
 
+/***** admin  styles *****/
+
+.add-plant-form-container {
+    display: flex;
+    justify-content: center;
+}
+
+.add-plant-form {
+    border: 1px solid rgb(40, 85, 44);
+    font-size: 1.2rem;
+    padding: 25px;
+}
+
+.add-plant-form * {
+    padding: 5px;
+}
+
+
 /***** home page styles *****/
 
 .home-image {
@@ -479,6 +497,26 @@ a:hover {
 .single-plant-description {
     margin-left: 20%;
     margin-right: 20%;
+}
+
+.change-page-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.change-page-container * {
+    padding: 30px;
+}
+
+.change-page-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.change-page-container * {
+    padding: 30px;
 }
 
 .change-page-container {

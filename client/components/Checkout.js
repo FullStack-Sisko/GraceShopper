@@ -90,7 +90,8 @@ export class Cart extends React.Component {
 
             <div className="checkout-page-btn">
               <button className="checkout-page btn center" type="submit" onClick={() =>
-                this.props.purchaseCart(userId)}
+                this.props.purchaseCart(userId)
+              }
               >Stripe Checkout</button>
             </div>
           </div>)

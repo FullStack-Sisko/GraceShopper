@@ -17,9 +17,11 @@ export class AdminHome extends React.Component {
     return (
       <div>
         <h1 className="all-plants-title center title">Admin Dashboard</h1>
-        <Link to="/admin/create">
-          <button title="add">Add</button>
-        </Link>
+        <div className="center">
+          <Link to="/admin/create">
+            <button className="btn admin-btn center " title="add">Add A New Plant</button>
+          </Link>
+        </div>
         <Filters />
         <ul>
           {plants.length === 0 ? (
@@ -49,8 +51,8 @@ export class AdminHome extends React.Component {
 
                       <div className="all-plants-info-bottom-container">
                         <div>
-                          <button type="submit" title="edit">Edit</button>
-                          <button onClick={()=>{this.props.deletePlant(plant.id)}} title="delete">Delete</button>
+                          <button type="submit" className="btn admin-btn" title="edit">Edit</button>
+                          <button className=" btn admin-btn" onClick={() => { this.props.deletePlant(plant.id) }} title="delete">Delete</button>
                         </div>
                         <div className="all-plants-price-cart-container">
                           <p className="all-plants-price">${plant.price}</p>

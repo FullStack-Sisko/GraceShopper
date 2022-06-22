@@ -56,7 +56,7 @@ class SinglePlant extends React.Component {
             <button className="btn"
               type="submit"
               onClick={() => {
-                alert(`${plant.name} has been added to your cart`)
+
                 this.props.createCartItem(plant.id, userId)
               }}>
               Add to Cart
