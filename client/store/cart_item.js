@@ -111,7 +111,7 @@ export const purchaseCart = (userId, history) => {
   return async (dispatch) => {
     const { data: cart_items } = await axios.put(`/api/cart_items/purchase/${userId}`);
     dispatch(purchasedCart(cart_items));
-    // history.push(`/cart/${userId}`)
+    history.push(`/cart/${userId}`)
   }
 }
 

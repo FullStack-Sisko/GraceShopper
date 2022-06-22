@@ -97,6 +97,7 @@ export class Cart extends React.Component {
                       }}>
                       +
                     </button>
+
                   </div>
                   <div className="cart-item-price">
                     <p><span className="bold"> Price: </span>${item.plant.price}</p>
@@ -155,7 +156,7 @@ export class Cart extends React.Component {
                     className="btn scroll-btn"
                     type="submit"
                     onClick={() => {
-                      alert(`${item.plant.name} has been added to your cart`)
+
                       this.props.moveSavedToCart(item.id)
                     }}  >
                     Add to Cart
@@ -184,7 +185,7 @@ export class Cart extends React.Component {
                   className="btn scroll-btn"
                   type="submit"
                   onClick={() => {
-                    alert(`${item.plant.name} has been added to your cart`)
+                   
                     this.props.createCartItem(item.plant.id, userId)
                   }} >
                   Buy it again?
