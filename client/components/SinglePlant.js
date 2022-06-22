@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchSinglePlant } from "../store/singlePlant";
 import { createCartItem, incrementCartItemQty, getAllCartItems } from "../store/cart_item";
@@ -20,6 +20,15 @@ class SinglePlant extends React.Component {
     } catch (err) {
       console.error(err);
     }
+  }
+
+  componentDidUpdate(prevProps) {
+    try {
+      const plantId = this.props.match.params.plantId;
+      if (plantId !== prevProps.match.params.plantId) {
+        this.props.loadSinglePlant(plantId);
+      }
+    } catch (error) { console.error(error) }
   }
 
   render() {
@@ -55,12 +64,15 @@ class SinglePlant extends React.Component {
         </div>
       </div>
 
+
+      {/* next and previous buttons, hard coded checks against quantity of plants */}
       <div className="change-page-container">
 
         {plant.id > 1 ? (
           <Link to={`/plants/${plant.id - 1}`}>previous</Link>) : <span></span>}
 
-        <Link to={`/plants/${plant.id + 1}`}>next</Link>
+        {plant.id >= 28 ? (<span></span>) : (
+          <Link to={`/plants/${plant.id + 1}`}>next</Link>)}
 
       </div>
     </div>

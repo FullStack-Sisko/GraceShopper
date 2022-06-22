@@ -10,7 +10,7 @@ import Cart from "./components/Cart";
 import AdminHome from "./components/AdminHome";
 import Create from "./components/Create"
 import { About } from "./components/About"
-
+import Checkout from "./components/Checkout"
 /**
  * COMPONENT
  */
@@ -33,6 +33,7 @@ class Routes extends Component {
             <Route path="/admin" component={AdminHome} />
             <Route path="/cart/:userId" component={Cart} />
             <Route path="/about" component={About} />
+            <Route path="/checkout/:userId" component={Checkout} />
             <Redirect to="/home" />
           </Switch>
         ) : (

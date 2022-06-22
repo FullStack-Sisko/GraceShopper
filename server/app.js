@@ -1,3 +1,6 @@
+// dotenv for Stripe
+require('dotenv').config()
+
 const path = require('path')
 const express = require('express')
 const morgan = require('morgan')
@@ -10,11 +13,14 @@ app.use(morgan('dev'))
 // body parsing middleware
 app.use(express.json())
 
+//Stripe
+const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
+
 // auth and api routes
 app.use('/auth', require('./auth'))
 app.use('/api', require('./api'))
 
-app.get('/', (req, res)=> res.sendFile(path.join(__dirname, '..', 'public/index.html')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, '..', 'public/index.html')));
 
 // static file-serving middleware
 app.use(express.static(path.join(__dirname, '..', 'public')))

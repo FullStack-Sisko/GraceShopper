@@ -7,6 +7,9 @@ import { Filters } from './Filters'
 import { createCartItem, createLaterCartItem } from "../store/cart_item"
 
 export class AllPlants extends React.Component {
+  constructor(props) {
+    super(props)
+  }
   componentDidMount() {
     this.props.getPlants();
   }
@@ -43,13 +46,10 @@ export class AllPlants extends React.Component {
                         <span className="all-plants-care center">{plant.care}</span>
                       </div>
                       <p className="all-plants-description"> {plant.description}</p>
-
                       <div className="all-plants-info-bottom-container">
                         <div>
                           <button type="submit" title="Save for Later" className="all-plants-save-btn btn save-to-favorites-hover" onClick={() => {
-                            alert(`${plant.name} has been added to your saved for later`)
-                            console.log(plant.id, userId)
-                            this.props.createLaterCartItem(plant.id, userId)
+                            null
                           }}
                           >{<FaRegHeart />}</button>
                         </div>
@@ -57,19 +57,19 @@ export class AllPlants extends React.Component {
                           <p className="all-plants-price">${plant.price}</p>
                           <button type="submit" title="Add To Cart" className="all-plants-add-btn btn add-to-cart-hover"
                             onClick={() => {
-                              alert(`${plant.name} has been added to your cart`)
-                              console.log(plant.id, userId)
-                              this.props.createCartItem(plant.id, userId)
+                              null
                             }}
                           >{<FaShoppingCart />}</button>
                         </div>
                       </div>
+
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-          )}
+          )
+          }
 
         </ul>
       </div>
@@ -84,12 +84,12 @@ const mapState = (state) => {
   };
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, { history }) => {
   return {
     getPlants: () => dispatch(fetchPlants()),
     createLaterCartItem: (plantId, userId) => dispatch(createLaterCartItem((plantId, userId, history))),
     createCartItem: (plantId, userId) => dispatch(createCartItem((plantId, userId, history)))
-  };
+  }
 };
 
 export default connect(mapState, mapDispatch)(AllPlants);
