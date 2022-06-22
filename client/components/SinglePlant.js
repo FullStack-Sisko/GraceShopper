@@ -71,7 +71,7 @@ class SinglePlant extends React.Component {
         {plant.id > 1 ? (
           <Link to={`/plants/${plant.id - 1}`}>previous</Link>) : <span></span>}
 
-        {plant.id >= 19 ? (<span></span>) : (
+        {plant.id >= 28 ? (<span></span>) : (
           <Link to={`/plants/${plant.id + 1}`}>next</Link>)}
 
       </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { fetchPlants } from "../store/plants";
 import { Link } from "react-router-dom";
-// import { FaRegHeart, FaHeart, FaShoppingCart } from 'react-icons/fa'
+import { FaRegHeart, FaHeart, FaShoppingCart } from 'react-icons/fa'
 import { Filters } from './Filters'
 import { createCartItem, createLaterCartItem } from "../store/cart_item"
 
@@ -46,11 +46,21 @@ export class AllPlants extends React.Component {
                         <span className="all-plants-care center">{plant.care}</span>
                       </div>
                       <p className="all-plants-description"> {plant.description}</p>
-
-
-                      <div className="all-plants-price-cart-container">
-                        <p className="all-plants-price">${plant.price}</p>
-                        <p>{null}</p>
+                      <div className="all-plants-info-bottom-container">
+                        <div>
+                          <button type="submit" title="Save for Later" className="all-plants-save-btn btn save-to-favorites-hover" onClick={() => {
+                            null
+                          }}
+                          >{<FaRegHeart />}</button>
+                        </div>
+                        <div className="all-plants-price-cart-container">
+                          <p className="all-plants-price">${plant.price}</p>
+                          <button type="submit" title="Add To Cart" className="all-plants-add-btn btn add-to-cart-hover"
+                            onClick={() => {
+                              null
+                            }}
+                          >{<FaShoppingCart />}</button>
+                        </div>
                       </div>
 
                     </div>
